@@ -1,0 +1,510 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: Vazirmatn, serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+.main {
+    display: flex;
+    max-width: 414px;
+    height: fit-content;
+    min-height: 50px;
+    background-color: #ffffff;
+    margin: 0 auto;
+    flex-direction: column;
+}
+                                /**آلارم باکس**/
+.textshow {
+    height: fit-content;
+    width: fit-content;
+    padding: 6px 12px 8px 18px;
+    margin: 0 0 0 15px;
+    background-image: linear-gradient(to right, #262626 -34%, #646464 100%);
+    border-radius: 15px 5px 15px 15px;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    box-shadow: -5px 15px 25px #0000003d;
+    display: flex;
+    align-items: flex-start;
+    line-height: 21px;
+    z-index: 1000;
+}
+.textshow span {
+    font-size: small;
+    color: #e1e1e1;
+    padding: 4px 0 0 0 ;
+}
+.textshow .alarmgreen {
+    font-size: medium;
+    color: #25cc1f;
+    font-weight: 900;
+    padding: 4px 0 0 0 ;
+}
+.svglog1 {
+    width: 20px;
+    position: relative;
+    top: 5px;
+    margin: -4px 0 0 6px;
+}
+                            /**باکس گپ**/
+.main .Gap-Box {
+    width: 100%;
+    min-height: 10vh;
+    float: right;
+}
+.main .Gap-Box12 {
+    width: 100%;
+    min-height: 12vh;
+    float: right;
+}
+.main .Gap-Box10 {
+    width: 100%;
+    min-height: 10vh;
+    float: right;
+}
+.main .Gap-Box8 {
+    width: 100%;
+    min-height: 8vh;
+    float: right;
+}
+.main .Gap-Box5 {
+    width: 100%;
+    min-height: 5vh;
+    float: right;
+}
+.main .Gap-Box4 {
+    width: 100%;
+    min-height: 4vh;
+    float: right;
+}
+.main .Gap-Box3 {
+    width: 100%;
+    min-height: 3vh;
+    float: right;
+}
+.main .Gap-Box2 {
+    width: 100%;
+    min-height: 2vh;
+    float: right;
+}
+                            /**باکس تایتل**/
+.main .Logo-Title {
+    width: 100%;
+    height: fit-content;
+    margin: 0 0 20px 0;
+    direction: rtl;
+}
+.main .Logo-Title h1 {
+    font-size: large;
+    font-weight: 400;
+    background-image: linear-gradient(to right, #1e1e1e -34%, #565656 100%);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    text-align: center;
+}
+.main .Logo-Title p {
+    font-size: small;
+    font-weight: 300;
+    color: #8a8a8a;
+    text-align: right;
+    padding: 0 1vw;
+}
+                            /**باکس لوگو**/
+.main .Logo-Box {
+    width: 100%;
+    height: fit-content;
+}
+.main .Logo-Box .LogoImg {
+    width: 40%;
+    height: 40%;
+    margin: 0 30% 0 30%;
+    overflow: hidden;
+}
+.main .Logo-Box .LogoImg img {
+    width: 100%;
+    height: 100%;
+}
+.main .Logo-Box .LogoImg video source {
+    width: 100%;
+    height: 100%;
+}
+                            /**باکس اینپوت ها**/
+.InputBox {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 0 15%;
+}
+.InputBoxN {
+    width: 85%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 25px 4% 15px 4%;
+    border-radius: 15px;
+    margin: 0 auto 0 auto;
+    box-shadow: 0 40px 50px -50px #1f5493c7;
+    background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+                              /**باکس دکمه**/
+.InputBTN {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 0 15%;
+}
+                            /**اینپوت ها (ورودی)**/
+.inp {
+    position: relative;
+    margin: 0 auto 5px 0;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    font-weight: 400;
+}
+.inp .label {
+    font-weight: 400;
+    position: absolute;
+    top: 17px;
+    right: 12px;
+    color: #0000007F;
+    transform-origin: 0 0;
+    transform: translate3d(0, 0, 0);
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+.inp .focus-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.05);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: right;
+}
+.inp input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    border: 0;
+    border-radius: 8px;
+    padding: 17px 12px 0 12px;
+    height: 56px;
+    font-size: 16px;
+    font-weight: 400;
+    background: rgba(0, 0, 0, 0.02);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    color: #000;
+    transition: all 0.15s ease;
+}
+.inp input:hover {
+    background: rgba(0, 0, 0, 0.04);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+}
+.inp input:not(:-ms-input-placeholder) + .label {
+    color: rgba(0, 0, 0, 0.5);
+    transform: translate3d(0, -12px, 0) scale(0.75);
+}
+.inp input:not(:placeholder-shown) + .label {
+    color: rgba(0, 0, 0, 0.5);
+    transform: translate3d(10px, -12px, 0) scale(0.75);
+}
+.inp input:focus {
+    background: rgba(0, 0, 0, 0.05);
+    outline: none;
+    box-shadow: inset 0 -2px 0 #0077FF;
+}
+.inp input:focus + .label {
+    color: #0077FF;
+    transform: translate3d(12px, -12px, 0) scale(0.8);
+}
+.inp input:focus + .label + .focus-bg {
+    transform: scaleX(1);
+    transition: all 0.1s ease;
+}
+                        /***اینپوت تایپ متن طولانی*/
+.InputGozaresh {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 0 15%;
+}
+.inp textarea {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    border: 0;
+    border-radius: 8px;
+    padding: 30px 12px 0 12px;
+    height: fit-content;
+    font-size: 16px;
+    font-weight: 400;
+    background: rgba(0, 0, 0, 0.02);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    color: #000;
+    transition: all 0.15s ease;
+}
+.inp textarea:hover {
+    background: rgba(0, 0, 0, 0.04);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+}
+.inp textarea:not(:-ms-input-placeholder) + .label {
+    color: rgba(0, 0, 0, 0.5);
+    transform: translate3d(0, -12px, 0) scale(0.75);
+}
+.inp textarea:not(:placeholder-shown) + .label {
+    color: rgba(0, 0, 0, 0.5);
+    transform: translate3d(10px, -12px, 0) scale(0.75);
+}
+.inp textarea:focus {
+    background: rgba(0, 0, 0, 0.05);
+    outline: none;
+    box-shadow: inset 0 -2px 0 #0077FF;
+}
+.inp textarea:focus + .label {
+    color: #0077FF;
+    transform: translate3d(12px, -12px, 0) scale(0.8);
+}
+.inp textarea:focus + .label + .focus-bg {
+    transform: scaleX(1);
+    transition: all 0.1s ease;
+}
+                        /**اینپوت ها (کشویی)**/
+.form-select {
+    display: block;
+    width: 100%;
+    line-height: 43px;
+    padding: 0 12px;
+    margin: 0 0 10px 0;
+    background-color: #fafafa;
+    height: 56px;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.5);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");    background-repeat: no-repeat;
+    background-position: left 0.75rem center;
+    background-size: 16px 14px;
+    border: 0;
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 30%);
+    border-radius: 8px;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+                        /**اینپوت ساعت دستی**/
+#Fimehandi {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    border: 0;
+    border-radius: 8px;
+    padding: 4px 115px 0 15px;
+    height: 56px;
+    font-size: 20px;
+    font-weight: 400;
+    background: #fafafa;
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 30%);
+    transition: all 0.15s ease;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 0 0 10px 0;
+}
+.inp #Fimehandi:focus {
+    background: rgba(0, 0, 0, 0.05);
+    outline: none;
+    box-shadow: inset 0 -2px 0 #0077FF;
+}
+.inp #Fimehandi:focus + .label1 {
+    color: #0077FF;
+    transform: translate3d(5px, 0, 0) scale(1);
+}
+.inp #Fimehandi:focus + .label1 + .focus-bg {
+    transform: scaleX(1);
+    transition: all 0.1s ease;
+}
+.inp .label1 {
+    position: absolute;
+    top: 17px;
+    right: 12px;
+    color: #0000007F;
+    font-weight: 400;
+    transform-origin: 0 0;
+    transform: translate3d(0, 0, 0);
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+                        /**اینپوت تاریخ دستی**/
+#datadasti {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    border: 0;
+    border-radius: 8px;
+    padding: 4px 50px 0 15px;
+    height: 56px;
+    font-size: 20px;
+    font-weight: 400;
+    background: rgb(250 250 250);
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 30%);
+    transition: all 0.15s ease;
+    color: rgba(0, 0, 0, 0.5);
+    margin:  0 0 10px 0;
+}
+.inp #datadasti:focus {
+    background: rgba(0, 0, 0, 0.05);
+    outline: none;
+    box-shadow: inset 0 -2px 0 #0077FF;
+}
+.inp #datadasti:focus + .label1 {
+    color: #0077FF;
+    transform: translate3d(5px, 0, 0) scale(1);
+}
+.inp #datadasti:focus + .label1 + .focus-bg {
+    transform: scaleX(1);
+    transition: all 0.1s ease;
+}
+#datadasti-alt-field{
+    display: none;
+}
+#datadasti2 {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    border: 0;
+    border-radius: 8px;
+    padding: 4px 50px 0 15px;
+    height: 56px;
+    font-size: 20px;
+    font-weight: 400;
+    background: rgb(250 250 250);
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 30%);
+    transition: all 0.15s ease;
+    color: rgba(0, 0, 0, 0.5);
+    margin:  0 0 10px 0;
+}
+.inp #datadasti2:focus {
+    background: rgba(0, 0, 0, 0.05);
+    outline: none;
+    box-shadow: inset 0 -2px 0 #0077FF;
+}
+.inp #datadasti2:focus + .label1 {
+    color: #0077FF;
+    transform: translate3d(5px, 0, 0) scale(1);
+}
+.inp #datadasti2:focus + .label1 + .focus-bg {
+    transform: scaleX(1);
+    transition: all 0.1s ease;
+}
+#datadasti2-alt-field{
+    display: none;
+}
+                        /**دکمه و آیکون**/
+.container {
+    display: flex;
+    width: 100%;
+    margin: 5px auto 10px auto;
+    /* height: 100vh; */
+    justify-content: center;
+    align-items: center;
+}
+.btn {
+    flex: 1 1 auto;
+    padding:  16px 0;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    border-radius: 10px;
+    font-weight: 300;
+}
+.btn:hover {
+    background-position: right center;
+}
+.btn-1 {
+    background-image: linear-gradient(to right, #1e1e1e 5%, #b4b4b4 100%, #383838 100%);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.btn-3 {
+    background-image: linear-gradient(to right, #000000 -10%, #590e0e 50%);    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: #fff6f6;
+}
+.btn-4 {
+    background-image: linear-gradient(to right, #000000 -10%, #5f106b 50%);    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: #fff6f6;
+    margin: 0 10%;
+}
+.btn-2 {
+    background-image: linear-gradient(to right, #000000 -10%, #0a4f30 50%);    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: #f6fff8;
+}
+.container .svglog {
+    margin: 0 0 0 10px;
+}
+                            /*کپی رایت و دکمه های دیگر*/
+.forgetpass {
+    width: 100%;
+    text-align: center;
+    font-size: small;
+    position: absolute;
+    bottom: 45px;
+    max-width: 414px;
+}
+.forgetpass a {
+    color: #858585;
+}
+.joboffer {
+    width: 100%;
+    text-align: center;
+    font-size: small;
+}
+.joboffer a {
+    color: #858585;
+}
+.ExitA {
+    width: 100%;
+    text-align: center;
+    font-size: small;
+    position: absolute;
+    bottom: 15px;
+    max-width: 414px;
+}
+.ExitA a {
+    color: #ff3737;
+}
+.BoxCopyR {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 414px;
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+}
+.BoxCopyR .CopyR {
+    font-size: small;
+}

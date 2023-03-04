@@ -1,4 +1,6 @@
 <IfModule mod_rewrite.c>
+RewriteCond %{HTTP:X-Original-Host} \.ngrok\.io$ [NC]
+RewriteRule .* - [E=HTTP_X_FORWARDED_HOST:%{HTTP:X-Original-Host}]
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
