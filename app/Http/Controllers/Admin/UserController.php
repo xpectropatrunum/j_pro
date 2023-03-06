@@ -106,7 +106,7 @@ class UserController extends Controller
             if(is_numeric($request->supervisor)){
                 SupervisorUser::create(["user_id" => $user->id,  "supervisor_id" => $request->supervisor]);
             }
-            return redirect()->route("admin.users.index")->withSuccess("The user successfully created");
+            return redirect()->route("admin.users.index")->withSuccess("The item successfully created");
         }
         return redirect()->back()->withError("Something went wrong");
     }
@@ -145,7 +145,7 @@ class UserController extends Controller
             if(is_numeric($request->supervisor)){
                 SupervisorUser::updateOrCreate(["user_id" => $user->id], ["supervisor_id" => $request->supervisor]);
             }
-            return redirect()->back()->withSuccess("The user successfully updated");
+            return redirect()->back()->withSuccess("The item successfully updated");
         }
         return redirect()->back()->withError("Something went wrong");
     }
@@ -181,7 +181,7 @@ class UserController extends Controller
         $user->offs()->delete();
         $user->logs()->delete();
         if($user->delete()){
-            return redirect()->back()->withSuccess("The user successfully deleted");
+            return redirect()->back()->withSuccess("The item successfully deleted");
         }
         return redirect()->back()->withError("Something went wrong");
 

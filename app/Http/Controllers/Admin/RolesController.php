@@ -79,7 +79,7 @@ class RolesController extends Controller
         $role->syncPermissions($request->get('permission'));
     
         return redirect()->route('admin.roles.index')
-                        ->with('success','Role created successfully');
+                        ->with('success','The item successfully created');
     }
 
     /**
@@ -130,7 +130,7 @@ class RolesController extends Controller
         $role->syncPermissions($request->get('permission'));
     
         return redirect()->route('admin.roles.index')
-                        ->with('success','Role updated successfully');
+                        ->with('success','The item successfully updated');
     }
 
     /**
@@ -144,6 +144,6 @@ class RolesController extends Controller
         $role->delete();
 
         return redirect()->route('admin.roles.index')
-                        ->with('success','Role deleted successfully');
+                        ->with('success','The item successfully deleted');
     }
 }

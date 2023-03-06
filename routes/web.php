@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\OffController;
 use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Panel\PanelController;
 use App\Http\Controllers\Panel\Auth\LoginController as AuthLoginController;
@@ -74,6 +75,7 @@ Route::prefix("admin")->name("admin.")->group(function () {
         Route::get('letters/excel', [LetterController::class, "excel"])->name("letters.excel");
 
         Route::resource('letters', LetterController::class);
+        Route::resource('settings', SettingController::class);
         Route::resource('offs', OffController::class);
         Route::resource('logs', LogController::class);
         Route::resource('leaves', LeaveController::class);

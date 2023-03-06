@@ -71,7 +71,7 @@
                     {{-- status Alert --}}
                     @if(session('status'))
                         <div class="alert alert-info alert-dismissible fade show mt-3" role="alert">
-                            {{session('status')}}
+                            {{__(session('status'))}}
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -80,7 +80,7 @@
 
                     @if(session('error'))
                         <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
-                            {{session('error')}}
+                            {{__(session('error'))}}
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -91,7 +91,7 @@
                         <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
                             <ul class="list-unstyled m-0">
                                 @foreach ($errors->all() as $error)
-                                    <li><strong>{{ $error }}</strong></li>
+                                    <li><strong>{{ __($error) }}</strong></li>
                                 @endforeach
                             </ul>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -103,7 +103,7 @@
                     {{-- Success Alert --}}
                     @if(session('success'))
                         <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                            {{session('success')}}
+                            {{__(session('success'))}}
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>

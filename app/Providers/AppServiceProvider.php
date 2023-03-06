@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,8 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(\Illuminate\Http\Request $request): void
     {
+        App::setLocale("fa");
         if($this->app->environment('production')) {
-            \URL::forceScheme('https');
+           // \URL::forceScheme('https');
         }
         if ($request->server->has('HTTP_X_ORIGINAL_HOST')) {
             $request->server->set('HTTP_X_FORWARDED_HOST', $request->server->get('HTTP_X_ORIGINAL_HOST'));

@@ -104,7 +104,7 @@ class ProjectController extends Controller
 
 
         if (auth()->user()->projects()->create($request->all())) {
-            return redirect()->route("admin.projects.index")->withSuccess("The project successfully created");
+            return redirect()->route("admin.projects.index")->withSuccess("The item successfully created");
         }
         return redirect()->back()->withError("Something went wrong");
     }
@@ -122,7 +122,7 @@ class ProjectController extends Controller
 
 
         if ($project->update($request->all())) {
-            return redirect()->back()->withSuccess("The project successfully updated");
+            return redirect()->back()->withSuccess("The item successfully updated");
         }
         return redirect()->back()->withError("Something went wrong");
     }
@@ -148,7 +148,7 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         if ($project->delete()) {
-            return redirect()->back()->withSuccess("The user successfully deleted");
+            return redirect()->back()->withSuccess("The item successfully deleted");
         }
         return redirect()->back()->withError("Something went wrong");
     }

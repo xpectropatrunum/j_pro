@@ -19,7 +19,7 @@
 @section('content')
     <div class="card card-primary card-outline">
         <div class="card-body">
-            <h5 class="card-title">Wellcome to admin panel</h5>
+            <h5 class="card-title">{{__("Wellcome to admin panel")}}</h5>
         </div>
     </div><!-- /.card -->
 @endsection

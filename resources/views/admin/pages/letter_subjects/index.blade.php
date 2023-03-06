@@ -1,16 +1,16 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Letter subjects')
+@section('title', __("Letter subjects"))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Letter subjects</h1>
+            <h1 class="m-0 text-dark">{{__("Letter subjects")}}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb @if(app()->getLocale() == 'fa') float-sm-left @else float-sm-right @endif">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('admin.dashboard') }}</a></li>
-                <li class="breadcrumb-item active">Letter subjects</li>
+                <li class="breadcrumb-item active">{{__("Letter subjects")}}</li>
             </ol>
         </div>
     </div>
@@ -22,7 +22,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header d-flex align-items-center px-3">
-                    <h3 class="card-title">Letter subjects</h3>
+                    <h3 class="card-title">{{__("Letter subjects")}}</h3>
                     <a class="btn btn-outline-primary btn-sm mx-3" href="{{ route('admin.letter_subjects.create') }}"><i class="fa fa-plus"></i> {{ __('admin.add_new') }}</a>
                 </div>
                 <div class="card-body p-3">
@@ -57,7 +57,7 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{ ('Title') }}</th>
+                                <th>{{ __('Title_') }}</th>
                                 <th>{{ __('Supervisor') }}</th>
                                 <th>{{ __('Enable') }}</th>
                                 <th>{{ __('admin.created_date') }}</th>
@@ -78,7 +78,7 @@
                                                    data-id="{{ $item->id }}" class="form-check-input changeStatus"
                                                    id="exampleCheck{{ $item->id }}" @if($item->enable) checked @endif>
                                             <label class="form-check-label" for="exampleCheck{{ $item->id }}">
-                                                enable</label>
+                                            {{__("enable")}}</label>
                                         </div>
                                     </td>
                                     <td>{{ (new Shamsi)->jdate($item->created_at) }}</td>

@@ -1,16 +1,16 @@
 @extends('admin.layouts.master')
 
-@section('title', 'projects')
+@section('title', __("Projects"))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">projects</h1>
+            <h1 class="m-0 text-dark">{{__("Projects")}}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb @if (app()->getLocale() == 'fa') float-sm-left @else float-sm-right @endif">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('admin.dashboard') }}</a></li>
-                <li class="breadcrumb-item active">projects</li>
+                <li class="breadcrumb-item active">{{__("Projects")}}</li>
             </ol>
         </div>
     </div>
@@ -22,7 +22,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header d-flex align-items-center px-3">
-                    <h3 class="card-title">projects</h3>
+                    <h3 class="card-title">{{__("Projects")}}</h3>
                     <a class="btn btn-outline-primary btn-sm mx-3" href="{{ route('admin.projects.create') }}"><i
                             class="fa fa-plus"></i> {{ __('admin.add_new') }}</a>
                 </div>

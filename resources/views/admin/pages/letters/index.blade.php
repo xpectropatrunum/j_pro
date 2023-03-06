@@ -1,16 +1,16 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Letter')
+@section('title', __("Letter"))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Letter</h1>
+            <h1 class="m-0 text-dark">{{__("Letter")}}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb @if (app()->getLocale() == 'fa') float-sm-left @else float-sm-right @endif">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('admin.dashboard') }}</a></li>
-                <li class="breadcrumb-item active">Letter</li>
+                <li class="breadcrumb-item active">{{__("Letter")}}</li>
             </ol>
         </div>
     </div>
@@ -22,7 +22,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header d-flex align-items-center px-3">
-                    <h3 class="card-title">Letter</h3>
+                    <h3 class="card-title">{{__("Letter")}}</h3>
                 </div>
                 <div class="card-body p-3">
                     <form class="frm-filter" action="{{ route('admin.letters.index') }}" type="post" autocomplete="off">
@@ -39,34 +39,37 @@
                                 </select>
                             </div>
 
-                            <div class="input-group input-group-sm col-lg-3" >
+                            <div class="input-group input-group-sm col-lg-3">
                                 <select name="company" class="custom-select select2">
                                     <option value="0">{{ __('Select company') }}</option>
                                     @foreach (\App\Models\Project::get() as $item)
                                         @if ($item->supervisor_id == auth()->user()->id)
-                                            <option  @if ($company == $item->id) selected @endif value="{{ $item->id }}">{{ $item->company_name }}</option>
+                                            <option @if ($company == $item->id) selected @endif
+                                                value="{{ $item->id }}">{{ $item->company_name }}</option>
                                         @endif
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="input-group input-group-sm col-lg-3" >
+                            <div class="input-group input-group-sm col-lg-3">
                                 <select name="user" class="custom-select select2">
                                     <option value="0">{{ __('Select user') }}</option>
                                     @foreach (\App\Models\User::get() as $item)
                                         @if ($item->supervisor()->first()?->id == auth()->user()->id)
-                                            <option @if ($user == $item->id) selected @endif value="{{ $item->id }}">{{ $item->name }}</option>
+                                            <option @if ($user == $item->id) selected @endif
+                                                value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endif
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="input-group input-group-sm col-lg-3" >
-                                <input value="{{$date}}" name="date" type="text" placeholder="1401/11/12">
+                            <div class="input-group input-group-sm col-lg-3">
+                                <input value="{{ $date }}" name="date" type="text" placeholder="1401/11/12">
                             </div>
-                           <div class="col-12 mt-2">
-                            <button type="submit" class="btn btn-primary">{{ __('Filter') }}</button>
-                            <a href="{{route("admin.letters.excel")}}"><button type="button" class="btn btn-primary">{{ __('Download Excel') }}</button></a>
-                           </div>
-                        
+                            <div class="col-12 mt-2">
+                                <button type="submit" class="btn btn-primary">{{ __('Filter') }}</button>
+                                <a href="{{ route('admin.letters.excel') }}"><button type="button"
+                                        class="btn btn-primary">{{ __('Download Excel') }}</button></a>
+                            </div>
+
 
 
                         </div>
@@ -77,10 +80,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{ 'Title' }}</th>
+                                    <th>{{ __('Title_') }}</th>
                                     <th>{{ __('Number') }}</th>
                                     <th>{{ __('Company') }}</th>
-                                    <th>{{ __('Date') }}</th>
+                                    <th>{{ __('Created Date') }}</th>
                                     <th>{{ __('User') }}</th>
                                     {{--  <th>{{ __('admin.created_date') }}</th>  --}}
                                     {{--  <th>{{ __('admin.actions') }}</th>  --}}
@@ -89,7 +92,7 @@
                             <tbody>
                                 @foreach ($items as $key => $item)
                                     <tr>
-                                        <td>{{ $key + 1}}</td>
+                                        <td>{{ $key + 1 }}</td>
                                         <td>{{ $item->letter_subject?->title ?? '--' }}</td>
                                         <td>{{ $item->number }}</td>
                                         <td>{{ $item->project?->company_name }}</td>

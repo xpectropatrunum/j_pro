@@ -1,17 +1,17 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Permissions')
+@section('title', __("Permissions"))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Permissions</h1>
+            <h1 class="m-0 text-dark">{{__("Permissions")}}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb @if (app()->getLocale() == 'fa') float-sm-left @else float-sm-right @endif">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('admin.dashboard') }}</a>
                 </li>
-                <li class="breadcrumb-item active">Permissions</li>
+                <li class="breadcrumb-item active">{{__("Permissions")}}</li>
             </ol>
         </div>
     </div>
@@ -23,7 +23,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header d-flex align-items-center px-3">
-                    <h3 class="card-title">Permissions</h3>
+                    <h3 class="card-title">{{__("Permissions")}}</h3>
 
                 </div>
                 <div class="card-body p-3">
@@ -72,10 +72,10 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->guard_name }}</td>
                                         <td class="project-actions">
-                                            <a href="{{ route('admin.permissions.edit', $item->id) }}" class="btn btn-info btn-sm">Edit</a>
+                                            <a href="{{ route('admin.permissions.edit', $item->id) }}" class="btn btn-info btn-sm">{{__("Edit")}}</a>
                                             
                                                 {!! Form::open(['method' => 'DELETE','route' => ['admin.permissions.destroy', $item->id],'style'=>'display:inline']) !!}
-                                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                                                {!! Form::submit(__('admin.delete'), ['class' => 'btn btn-danger btn-sm']) !!}
                                                 {!! Form::close() !!}
 
                                         </td>

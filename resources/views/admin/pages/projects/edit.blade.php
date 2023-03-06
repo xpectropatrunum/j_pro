@@ -1,16 +1,16 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Edit project')
+@section('title', __("edit project"))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Edit project</h1>
+            <h1 class="m-0 text-dark">{{__("edit project")}}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb @if (app()->getLocale() == 'fa') float-sm-left @else float-sm-right @endif">
-                <li class="breadcrumb-item"><a href="{{ route('admin.projects.index') }}">Edit project</a></li>
-                <li class="breadcrumb-item active">Edit project</li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.projects.index') }}">{{__("edit project")}}</a></li>
+                <li class="breadcrumb-item active">{{__("edit project")}}</li>
             </ol>
         </div>
     </div>
@@ -30,7 +30,7 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Edit project</h3>
+                <h3 class="card-title">{{__("edit project")}}</h3>
             </div>
             <form action="{{ route('admin.projects.update', $project->id) }}" method="post">
                 @csrf
@@ -39,29 +39,33 @@
                     <div class="row">
 
                         <div class="form-group col-lg-3">
-                            <label>name</label>
+                            <label>{{__("Name")}}</label>
                             <input type="text" value="{{ old('name', $project->name) }}" name="name"
                                 class="form-control @error('name') is-invalid @enderror" required>
                         </div>
                         <div class="form-group col-lg-3">
-                            <label>company name</label>
+                            <label>{{__("Company")}}</label>
+
                             <input type="text" value="{{ old('company_name',  $project->company_name) }}" name="company_name"
                                 class="form-control @error('company_name') is-invalid @enderror" required>
                         </div>
                         <div class="form-group col-lg-3">
-                            <label>max distance in meter</label>
+                            <label>{{__("max distance in meter")}}</label>
+
                             <input type="text" value="{{ old('area', $project->area) }}" name="area"
                                 class="form-control @error('area') is-invalid @enderror" required>
                         </div>
                         <div class="form-group col-lg-3">
-                            <label>status</label>
+                            <label>{{__("Status")}}</label>
+
                             <select name="status"  class="form-control @error('area') is-invalid @enderror">
                                 <option  @if ($project->status == 0) selected @endif value="0">{{__("Processing") }}</option>
                                 <option @if ($project->status == 1) selected @endif value="1">{{__("Done") }}</option>
                             </select>
                         </div>
                         <div class="form-group col-lg-12">
-                            <label>choose address</label>
+                            <label>{{__("Address")}}</label>
+
                             <div id="app"></div>
                         </div>
                         

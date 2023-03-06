@@ -1,16 +1,16 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Update permission')
+@section('title', __("Update permission"))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Update permission</h1>
+            <h1 class="m-0 text-dark">{{__("Update permission")}}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb @if(app()->getLocale() == 'fa') float-sm-left @else float-sm-right @endif">
-                <li class="breadcrumb-item"><a href="{{ route('admin.permissions.index') }}">List permissions</a></li>
-                <li class="breadcrumb-item active">Update permission</li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.permissions.index') }}">{{__("List permissions")}}</a></li>
+                <li class="breadcrumb-item active">{{__("Update permission")}}</li>
             </ol>
         </div>
     </div>
@@ -22,7 +22,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Update permission</h3>
+                    <h3 class="card-title">{{__("Update permission")}}</h3>
                 </div>
 
                 <form method="POST" action="{{ route('admin.permissions.update', $permission->id) }}">

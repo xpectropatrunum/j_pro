@@ -1,16 +1,16 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Offs')
+@section('title', __("Offs"))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Offs</h1>
+            <h1 class="m-0 text-dark">{{__("Offs")}}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb @if(app()->getLocale() == 'fa') float-sm-left @else float-sm-right @endif">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('admin.dashboard') }}</a></li>
-                <li class="breadcrumb-item active">Offs</li>
+                <li class="breadcrumb-item active">{{__("Offs")}}</li>
             </ol>
         </div>
     </div>
@@ -22,7 +22,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header d-flex align-items-center px-3">
-                    <h3 class="card-title">Offs</h3>
+                    <h3 class="card-title">{{__("Offs")}}</h3>
                 </div>
                 <div class="card-body p-3">
                     <form class="frm-filter" action="{{ route('admin.offs.index') }}" type="post" autocomplete="off">

@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>{{ 'Title' }}</th>
+            <th>{{ __('Title_') }}</th>
             <th>{{ __('Number') }}</th>
             <th>{{ __('Company') }}</th>
             <th>{{ __('Date') }}</th>

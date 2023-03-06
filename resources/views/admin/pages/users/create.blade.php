@@ -1,16 +1,16 @@
 @extends('admin.layouts.master')
 
-@section('title', 'create new user')
+@section('title', __("Create new user"))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Create new user</h1>
+            <h1 class="m-0 text-dark">{{__("Create new user")}}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb @if(app()->getLocale() == 'fa') float-sm-left @else float-sm-right @endif">
-                <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">List users</a></li>
-                <li class="breadcrumb-item active">Create new user</li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">{{__("List users")}}</a></li>
+                <li class="breadcrumb-item active">{{__("Create new user")}}</li>
             </ol>
         </div>
     </div>
@@ -22,7 +22,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Create new user</h3>
+                    <h3 class="card-title">{{__("Create new user")}}</h3>
                 </div>
                 <form action="{{ route('admin.users.store') }}" method="post">
                     @csrf
@@ -30,33 +30,39 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="form-group col-lg-3">
-                                <label>ID</label>
+                                <label>{{__("ID")}}</label>
+
                                 <input type="text" value="{{ old('system_id') }}" name="system_id"
                                     class="form-control @error('system_id') is-invalid @enderror">
                             </div>
                             <div class="form-group col-lg-3">
-                                <label>Name</label>
+                                <label>{{__("Name")}}</label>
+
                                 <input type="text" value="{{ old('name') }}" name="name"
                                     class="form-control @error('name') is-invalid @enderror">
                             </div>
                             <div class="form-group col-lg-3">
-                                <label>Username</label>
+                                <label>{{__("Username")}}</label>
+
                                 <input type="text" value="{{ old('username') }}" name="username"
                                     class="form-control @error('username') is-invalid @enderror">
                             </div>
                             <div class="form-group col-lg-3">
-                                <label>Email</label>
+                                <label>{{__("Email")}}</label>
+
                                 <input type="text" value="{{ old('email') }}" name="email"
                                     class="form-control @error('email') is-invalid @enderror">
                             </div>
                             <div class="form-group col-lg-3">
-                                <label>Phone</label>
+                                <label>{{__("Phone")}}</label>
+
                                 <input type="text" value="{{ old('phone') }}" name="phone"
                                     class="form-control @error('phone') is-invalid @enderror">
                             </div>
                             @if (auth()->user()->hasRole('admin'))
                             <div class="form-group col-lg-4">
-                                <label>Role</label>
+                                <label>{{__("Role")}}</label>
+
                                 <select name="roles[]" multiple class="form-control select2">
                                     @foreach (\Spatie\Permission\Models\Role::all() as $role)
                                         <option value="{{ $role->id }}">
@@ -67,7 +73,8 @@
                             @endif
 
                             <div class="form-group col-lg-4">
-                                <label>Supervisor</label>
+                                <label>{{__("Supervisor")}}</label>
+
                                 <select name="supervisor" class="form-control select2">
                                     <option>
                                        Select ...</option>
