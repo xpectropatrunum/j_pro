@@ -36,7 +36,7 @@ class Log extends Model
     function getDurationAttribute(){
         if(!$this->leave){
             $end_time = $this->user->supervisor()->first()->setting?->end_time ?? "17:00";
-           // dd($end_time);
+            dd($end_time);
             return 0;
         }
         return gmdate("H:i:s", strtotime($this->leave->created_at) - strtotime($this->date . " " . $this->time))  ;
