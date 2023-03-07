@@ -41,12 +41,15 @@ class LogController extends Controller
 
 
         if (auth()->user()->hasRole("supervisor")) {
-            $query = Log::with("leave")->query();
+            $query = Log::query();
 
             $query =  $query
                 ->join('users', 'logs.user_id', '=', 'users.id')
                 ->join('supervisor_user', 'users.id', '=', 'supervisor_user.user_id')
-                ->where('supervisor_user.supervisor_id', '=', auth()->user()->id) ;
+                ->where('supervisor_user.supervisor_id', '=', auth()->user()->id) ->select(
+                    '*',
+                    'leaves.created_at as leaves_created_at',
+                );
         } else {
             $query = Log::latest();
         }
