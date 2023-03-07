@@ -38,7 +38,7 @@ class Log extends Model
             $end_time = $this->user->supervisor()->first()->setting?->end_time ?? "17:00";
             if(time() - strtotime($this->date  . " " . $end_time) > 0){
                 $r = gmdate("H:i:s", strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time))  ;
-                if($r > 0 ){
+                if(strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time)> 0 ){
                     return $r;
                 }
             }
