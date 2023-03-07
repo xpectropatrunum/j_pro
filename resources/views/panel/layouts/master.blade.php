@@ -99,7 +99,7 @@
     <script>
         setTimeout(() => {
             $(".alert__").hide(500)
-        }, 20000)
+        }, 5000)
     </script>
 
 </body>

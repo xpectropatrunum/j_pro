@@ -101,13 +101,14 @@ class PanelController extends Controller
         ]);
         $request->validate([
             "note" => "required",
-            "fee" => "required|integer",
         ], [
             "note.required" => "گزارش کار ضروری می باشد",
-            "fee.required" => "هزینه ایاب و ذهاب ضروری می باشد",
-            "fee.integer" => "هزینه ایاب و ذهاب نادرست می باشد",
         ]);
 
+        if($request->fee && !is_numeric($request->fee)){
+            return redirect()->back()->withError("هزینه ایاب ذهاب معتبر نمی باشد");
+
+        }
 
         $log = auth()->user()->logs()->where(["date" => date("Y-m-d")])->latest()->firstOrFail();
         $project = $log->project;

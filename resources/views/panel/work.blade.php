@@ -66,6 +66,7 @@
         });
         $(".InputBTN__").click(function() {
             if ($("[name=title]").val() == "0") {
+                $(".alert__").hide(500)
                 $(".append-alert").html(` <div dir="rtl" class="textshow alert__">
                   <svg class="svglog1" width="24" height="24" viewBox="0 0 24 24" fill="none"
                       xmlns="http://www.w3.org/2000/svg">
@@ -82,7 +83,7 @@
               </div>`);
                 setTimeout(() => {
                     $(".append-alert").hide(500)
-                }, 20000);
+                }, 5000);
                 return;
             }
 
