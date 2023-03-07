@@ -5,12 +5,12 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">{{__('Logs')}}</h1>
+            <h1 class="m-0 text-dark">{{ __('Logs') }}</h1>
         </div>
         <div class="col-sm-6">
-            <ol class="breadcrumb @if(app()->getLocale() == 'fa') float-sm-left @else float-sm-right @endif">
+            <ol class="breadcrumb @if (app()->getLocale() == 'fa') float-sm-left @else float-sm-right @endif">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('admin.dashboard') }}</a></li>
-                <li class="breadcrumb-item active">{{__('Logs')}}</li>
+                <li class="breadcrumb-item active">{{ __('Logs') }}</li>
             </ol>
         </div>
     </div>
@@ -22,7 +22,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header d-flex align-items-center px-3">
-                    <h3 class="card-title">{{__('Logs')}}</h3>
+                    <h3 class="card-title">{{ __('Logs') }}</h3>
                 </div>
                 <div class="card-body p-3">
                     <form class="frm-filter" action="{{ route('admin.logs.index') }}" type="post" autocomplete="off">
@@ -31,16 +31,17 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <div class="input-group input-group-sm" style="width: 70px;">
                                 <select name="limit" class="custom-select">
-                                    <option value="10" @if($limit == 10) selected @endif>10</option>
-                                    <option value="25" @if($limit == 25) selected @endif>25</option>
-                                    <option value="50" @if($limit == 50) selected @endif>50</option>
-                                    <option value="100" @if($limit == 100) selected @endif>100</option>
-                                    <option value="200" @if($limit == 200) selected @endif>200</option>
+                                    <option value="10" @if ($limit == 10) selected @endif>10</option>
+                                    <option value="25" @if ($limit == 25) selected @endif>25</option>
+                                    <option value="50" @if ($limit == 50) selected @endif>50</option>
+                                    <option value="100" @if ($limit == 100) selected @endif>100</option>
+                                    <option value="200" @if ($limit == 200) selected @endif>200</option>
                                 </select>
                             </div>
 
                             <div class="input-group input-group-sm" style="width: 200px;">
-                                <input type="text" name="search" class="form-control" placeholder="{{ __('admin.search') }}..." value="{{ $search }}">
+                                <input type="text" name="search" class="form-control"
+                                    placeholder="{{ __('admin.search') }}..." value="{{ $search }}">
 
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-default">
@@ -54,32 +55,35 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered mb-0 text-nowrap">
                             <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>{{ __('User') }}</th>
-                                <th>{{ __('Project') }}</th>
-                                <th>{{ __('Login') }}</th>
-                                <th>{{ __('Logout') }}</th>
-                                {{--  <th>{{ __('admin.actions') }}</th>  --}}
-                            </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{{ __('User') }}</th>
+                                    <th>{{ __('Project') }}</th>
+                                    <th>{{ __('Login') }}</th>
+                                    <th>{{ __('Logout') }}</th>
+                                    {{--  <th>{{ __('admin.actions') }}</th>  --}}
+                                </tr>
                             </thead>
                             <tbody>
-                            @foreach($items as $item)
-                                <tr>
-                                    @php
-                                    dd( $item->leave );
-                                        
-                                    @endphp
-                                    <td>{{ $item->id }}</td>
-                                    <td><a href="{{ route("admin.users.index", ["search" => $item->user_id]) }}">{{ $item->user->name }}</a></td>
-                                    
-                                    <td><a href="{{ route("admin.projects.index", ["search" => $item->project->id]) }}">{{ $item->project->name }}</a></td>
-                                    
-                                    <td>{{ (new Shamsi)->jdate($item->date. " ". $item->time)}} </td>
-                                    <td>{{ $item->leave ? (new Shamsi)->jdate($item->leaves_created_at ?: $item->leave->created_at) : "--" }}</td>
+                                @foreach ($items as $item)
+                                    @if ($item->user->supervisor()->first()->id == auth()->user()->id or $auth->user()->hasRole('admin'))
+                                        <tr>
 
-                                    
-                                    {{--  <td class="project-actions">
+                                            <td>{{ $item->id }}</td>
+                                            <td><a
+                                                    href="{{ route('admin.users.index', ['search' => $item->user_id]) }}">{{ $item->user->name }}</a>
+                                            </td>
+
+                                            <td><a
+                                                    href="{{ route('admin.projects.index', ['search' => $item->project->id]) }}">{{ $item->project->name }}</a>
+                                            </td>
+
+                                            <td>{{ (new Shamsi())->jdate($item->date . ' ' . $item->time) }} </td>
+                                            <td>{{ $item->leave ? (new Shamsi())->jdate($item->leaves_created_at ?: $item->leave->created_at) : '--' }}
+                                            </td>
+
+
+                                            {{--  <td class="project-actions">
                                       
 
                                         <form action="{{ route('admin.letters.destroy',$item->id) }}" class="d-inline-block" method="POST">
@@ -91,8 +95,9 @@
                                             </button>
                                         </form>
                                     </td>  --}}
-                                </tr>
-                            @endforeach
+                                        </tr>
+                                    @endif
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -100,7 +105,9 @@
                 <div class="cart-footer p-3 d-block d-md-flex justify-content-between align-items-center border-top">
                     {{ $items->onEachSide(0)->links('admin.partials.pagination') }}
 
-                    <p class="text-center mb-0">{{ __('admin.display').' '.$items->firstItem().' '.__('admin.to').' '.$items->lastItem().' '.__('admin.from').' '.$items->total().' '.__('admin.rows') }}</p>
+                    <p class="text-center mb-0">
+                        {{ __('admin.display') . ' ' . $items->firstItem() . ' ' . __('admin.to') . ' ' . $items->lastItem() . ' ' . __('admin.from') . ' ' . $items->total() . ' ' . __('admin.rows') }}
+                    </p>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -110,23 +117,19 @@
 @endsection
 
 @push('admin_css')
-
 @endpush
 
 @push('admin_js')
     <script>
-        $(function (){
-            $('.changeStatus').on('change',function (){
-                id= $(this).attr('data-id');
-                key= $(this).attr('data-key');
+        $(function() {
+            $('.changeStatus').on('change', function() {
+                id = $(this).attr('data-id');
+                key = $(this).attr('data-key');
 
-                if ($(this).is(':checked'))
-                {
-                    status= 1;
-                }
-                else
-                {
-                    status= 0;
+                if ($(this).is(':checked')) {
+                    status = 1;
+                } else {
+                    status = 0;
                 }
 
                 $.ajax({
@@ -137,16 +140,16 @@
                         "_token": "{{ csrf_token() }}",
                     },
                     dataType: 'json',
-                    beforeSend: function () {
+                    beforeSend: function() {
                         // $("#beforeAfterLoading").addClass("spinner-border");
                     },
-                    complete: function () {
+                    complete: function() {
                         // $("#beforeAfterLoading").removeClass("spinner-border");
                     },
-                    success: function (res) {
+                    success: function(res) {
                         Toast.fire({
                             icon: 'success',
-                            'title':'Record status successfully changed'
+                            'title': 'Record status successfully changed'
                         })
                     }
                 });
