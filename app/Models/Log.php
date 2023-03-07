@@ -25,7 +25,7 @@ class Log extends Model
         'time',
     ];
     function leave(){
-        return $this->hasOne(Leave::class);
+        return $this->hasOne(Leave::class, "leaves.log_id", "logs.id");
     }
     function user(){
         return $this->belongsTo(User::class);
