@@ -32,6 +32,7 @@ use Illuminate\Support\Facades\URL;
 */
 //URL::forceScheme('https');
 Route::get('forget', [AuthLoginController::class, 'forget'])->name("forget");
+Route::get('forget/{token}', [AuthLoginController::class, 'resetPassword'])->name("forget.reset");
 Route::post('forget', [AuthLoginController::class, 'forget_attemp'])->name("forget.attemp");
 Route::get('login', [AuthLoginController::class, 'index'])->name("login");
 Route::get('/', [AuthLoginController::class, 'index'])->name("login");

@@ -24,6 +24,9 @@ class ResetToken extends Model
         'expiration',
 
     ];
+    function user(){
+        return $this->belongsTo(User::class);
+    }
 
  
 }
