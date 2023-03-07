@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         App::setLocale("fa");
         if($this->app->environment('production')) {
-           // \URL::forceScheme('https');
+            \URL::forceScheme('https');
         }
         if ($request->server->has('HTTP_X_ORIGINAL_HOST')) {
             $request->server->set('HTTP_X_FORWARDED_HOST', $request->server->get('HTTP_X_ORIGINAL_HOST'));

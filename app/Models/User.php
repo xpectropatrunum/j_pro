@@ -67,6 +67,10 @@ class User extends Authenticatable
     function letters(){
         return $this->hasMany(Letter::class);
     }
+    function super_letters(){
+        return $this->hasMany(Letter::class, "supervisor_id", "id");
+    }
+    
     function supervisor(){
         return $this->belongsToMany(User::class, SupervisorUser::class, "user_id", "supervisor_id");
     }

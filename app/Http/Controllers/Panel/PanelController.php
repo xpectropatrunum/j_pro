@@ -137,7 +137,7 @@ class PanelController extends Controller
             "title.required" => "عنوان نامه ضروری می باشد",
             "date.required" => "تاریخ نامه ضروری می باشد",
         ]);
-        $number = (auth()->user()->letters()->latest()->first()?->number ?? (
+        $number = (auth()->user()->supervisor()->first()->super_letters()->latest()->first()?->number ?? (
             auth()->user()->supervisor()->first()->setting->letter_start_from ?? 10000
             )) + 1;
         $log = auth()->user()->logs()->where(["date" => date("Y-m-d")])->latest()->firstOrFail();
@@ -145,6 +145,7 @@ class PanelController extends Controller
         $letter = auth()->user()->letters()->create(
             [
                 "letter_subject_id" => $request->title,
+                "supervisor_id" => auth()->user()->supervisor()->first()->id,
                 "project_id" => $log->project_id,
                 "date" => MyHelper::fa_to_en($request->date),
                 "number" => $number,

@@ -22,6 +22,7 @@ class Letter extends Model
         'user_id',
         'letter_subject_id',
         'project_id',
+        'supervisor_id',
         'number',
         'date',
     ];
