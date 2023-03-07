@@ -65,7 +65,6 @@ class LogController extends Controller
 
         $items = $query->paginate($limit);
 
-        dd($items);
 
 
         return view('admin.pages.logs.index', compact('items', 'search', 'limit'));
