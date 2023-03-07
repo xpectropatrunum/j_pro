@@ -60,7 +60,7 @@ class OffController extends Controller
             $limit = $request->limit;
         }
 
-        $items = $query->orderBy("offs.created_at")->paginate($limit);
+        $items = $query->orderBy("offs.id", "desc")->paginate($limit);
 
 
 

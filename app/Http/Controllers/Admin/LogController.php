@@ -62,7 +62,7 @@ class LogController extends Controller
             $limit = $request->limit;
         }
 
-        $items = $query->orderBy("logs.created_at")->paginate($limit);
+        $items = $query->orderBy("logs.id", "desc")->paginate($limit);
 
 
 
