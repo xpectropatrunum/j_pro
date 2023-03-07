@@ -52,7 +52,7 @@
 
 <body dir="ltr">
     <div class="box">
-        <div class="title text-medium">Your registeration was done!</div>
+        <div class="title text-medium">فراموشی رمزعبور</div>
         <div class="content">
             <div>
 

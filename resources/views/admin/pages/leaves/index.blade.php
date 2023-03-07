@@ -76,7 +76,7 @@
                                     <td>{{ (new Shamsi)->jdate($item->log->date . " ". $item->log->time)}}</td>
                                     <td>{{ (new Shamsi)->jdate($item->created_at) }}</td>
 
-                                    <td>{{ number_format($item->fee)}}</td>
+                                    <td>{{ number_format($item->fee??0)}}</td>
                                     <td>{{ $item->note}}</td>
                                     
                                     {{--  <td class="project-actions">
