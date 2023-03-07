@@ -41,7 +41,7 @@ class LogController extends Controller
 
 
         if (auth()->user()->hasRole("supervisor")) {
-            $query = Log::query();
+            $query = Log::with("leave")->query();
 
             $query =  $query
                 ->join('users', 'logs.user_id', '=', 'users.id')
