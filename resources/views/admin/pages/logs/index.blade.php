@@ -66,6 +66,10 @@
                             <tbody>
                             @foreach($items as $item)
                                 <tr>
+                                    @php
+                                    dd( $item->leave );
+                                        
+                                    @endphp
                                     <td>{{ $item->id }}</td>
                                     <td><a href="{{ route("admin.users.index", ["search" => $item->user_id]) }}">{{ $item->user->name }}</a></td>
                                     
