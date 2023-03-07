@@ -65,7 +65,7 @@ class LeaveController extends Controller
             $limit = $request->limit;
         }
 
-        $items = $query->orderBy("leaves.created_at")->paginate($limit);
+        $items = $query->orderBy("leaves.id", "desc")->paginate($limit);
 
 
 
