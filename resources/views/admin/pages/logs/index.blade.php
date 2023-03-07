@@ -66,7 +66,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($items as $item)
-                                    @if ($item->user->supervisor()->first()->id == auth()->user()->id or $auth->user()->hasRole('admin'))
+                                    @if ($item->user->supervisor()->first()->id == auth()->user()->id or auth()->user()->hasRole('admin'))
                                         <tr>
 
                                             <td>{{ $item->id }}</td>
