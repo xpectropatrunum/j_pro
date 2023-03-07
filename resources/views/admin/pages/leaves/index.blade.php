@@ -74,7 +74,7 @@
                                     <td><a href="{{ route("admin.projects.index", ["search" => $item->log->project->id]) }}">{{ $item->log->project->name }}</a></td>
                                     
                                     <td>{{ (new Shamsi)->jdate($item->log->date . " ". $item->log->time)}}</td>
-                                    <td>{{ (new Shamsi)->jdate($item->created_at) }}</td>
+                                    <td>{{ (new Shamsi)->jdate($item->leaves_created_at ?? $item->created_at) }}</td>
 
                                     <td>{{ number_format($item->fee?:0)}}</td>
                                     <td>{{ $item->note}}</td>
