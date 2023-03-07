@@ -61,9 +61,11 @@ class LogController extends Controller
         if ($request->limit) {
             $limit = $request->limit;
         }
+   
 
         $items = $query->paginate($limit);
 
+        dd($items);
 
 
         return view('admin.pages.logs.index', compact('items', 'search', 'limit'));
