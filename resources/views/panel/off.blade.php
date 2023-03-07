@@ -53,6 +53,7 @@
                 format: 'YYYY/MM/DD',
                 altField: '#datadasti-alt-field',
             });
+            $('#datadasti').val("")
         });
     </script>
     <script>
