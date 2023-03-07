@@ -44,9 +44,7 @@ class LogController extends Controller
             $query = Log::with("leave")->latest("logs.created_at");
 
             $query =  $query
-                ->join('users', 'logs.user_id', '=', 'users.id')
-                ->join('supervisor_user', 'users.id', '=', 'supervisor_user.user_id')
-                ->where('supervisor_user.supervisor_id', '=', auth()->user()->id);
+               ;
         } else {
             $query = Log::latest();
         }
