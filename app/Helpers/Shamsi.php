@@ -47,7 +47,14 @@ class Shamsi
 
 
     }
-
+    public function jNumber()
+    {
+        return explode("-", $this->gregorian_to_jalali(date("Y/m/d")));
+    }
+    public function jMonthNumber()
+    {
+        return explode("-", $this->gregorian_to_jalali(date("Y/m/d")))[1];
+    }
     public function gTime($date, $hour, $minute)
     {
         list($j_y,$j_m,$j_d) = explode('/', $date);

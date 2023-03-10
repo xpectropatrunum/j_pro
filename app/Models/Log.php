@@ -24,29 +24,62 @@ class Log extends Model
         'date',
         'time',
     ];
-    function leave(){
+    function leave()
+    {
         return $this->hasOne(Leave::class);
     }
-    function user(){
+    function user()
+    {
         return $this->belongsTo(User::class);
     }
-    function project(){
+    function project()
+    {
         return $this->belongsTo(Project::class);
     }
-    function getDurationAttribute(){
-        if(!$this->leave){
+    function getLeaveTimeAttribute()
+    {
+        if (!$this->leave) {
             $end_time = $this->user->supervisor()->first()->setting?->end_time ?? "17:00";
-            if(time() - strtotime($this->date  . " " . $end_time) > 0){
-                $r = gmdate("H:i:s", strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time))  ;
-                if(strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time)> 0 ){
+            if(strtotime(date("H:i")) >= strtotime(env("MAX_WORKING_HOUR"))){
+                if (time() - strtotime($this->date  . " " . $end_time) > 0) {
+                    if (strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time) > 0) {
+                        return $end_time;
+                    }
+                }
+            }
+           
+            return null;
+        }
+        return date("H:i", explode(" ", $this->leave->created_at)[1]);
+    }
+    function getDurationAttribute()
+    {
+        if (!$this->leave) {
+            $end_time = $this->user->supervisor()->first()->setting?->end_time ?? "17:00";
+            if (time() - strtotime($this->date  . " " . $end_time) > 0) {
+                $r = gmdate("H:i:s",  strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time));
+                if (strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time) > 0) {
                     return $r;
                 }
             }
+
             return 0;
         }
-        return gmdate("H:i:s", strtotime($this->leave->created_at) - strtotime($this->date . " " . $this->time))  ;
-
+        return gmdate("H:i:s", strtotime($this->leave->created_at) - strtotime($this->date . " " . $this->time));
     }
+    function getDurationInSecondsAttribute()
+    {
+        if (!$this->leave) {
+            $end_time = $this->user->supervisor()->first()->setting?->end_time ?? "17:00";
+            if (time() - strtotime($this->date  . " " . $end_time) > 0) {
+                $r = strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time);
+                if (strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time) > 0) {
+                    return $r;
+                }
+            }
 
- 
+            return 0;
+        }
+        return strtotime($this->leave->created_at) - strtotime($this->date . " " . $this->time);
+    }
 }

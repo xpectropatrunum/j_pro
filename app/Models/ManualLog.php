@@ -9,24 +9,17 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class Leave extends Model
+class ManualLog extends Model
 {
 
-    public $table = "leaves";
+    public $table = "month_manual_logs";
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'log_id',
-        'note',
-        'fee',
+        'user_id',
+        'month_number',
     ];
-  
-    function log(){
-        return $this->belongsTo(Log::class);
-    }
-
- 
 }

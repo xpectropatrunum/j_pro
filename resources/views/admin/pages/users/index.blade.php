@@ -1,17 +1,29 @@
 @extends('admin.layouts.master')
 
-@section('title', __("Users"))
+@section('title', __('Users'))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">{{__("Users")}}</h1>
+            <h1 class="m-0 text-dark"> @role('supervisor')
+                    {{ __('Workers') }}
+                @endrole
+                @role('admin')
+                    {{ __('Users') }}
+                @endrole
+            </h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb @if (app()->getLocale() == 'fa') float-sm-left @else float-sm-right @endif">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('admin.dashboard') }}</a>
                 </li>
-                <li class="breadcrumb-item active">{{__("Users")}}</li>
+                <li class="breadcrumb-item active"> @role('supervisor')
+                        {{ __('Workers') }}
+                    @endrole
+                    @role('admin')
+                        {{ __('Users') }}
+                    @endrole
+                </li>
             </ol>
         </div>
     </div>
@@ -23,7 +35,13 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header d-flex align-items-center px-3">
-                    <h3 class="card-title">{{__("Users")}}</h3>
+                    <h3 class="card-title"> @role('supervisor')
+                            {{ __('Workers') }}
+                        @endrole
+                        @role('admin')
+                            {{ __('Users') }}
+                        @endrole
+                    </h3>
 
                 </div>
                 <div class="card-body p-3">
@@ -73,7 +91,65 @@
                             </thead>
                             <tbody>
                                 @foreach ($items as $item)
-                                    @if (auth()->user()->hasRole('supervisor'))
+
+                                    @if (auth()->user()->hasRole('admin'))
+                                        <tr>
+                                            <td>
+                                                @if ($item->hasRole('supervisor'))
+                                                    👨‍💼
+                                                    @endif @if ($item->hasRole('admin'))
+                                                        ⭐
+                                                    @endif{{ $item->id }}
+                                            </td>
+                                            <td>{{ $item->system_id }}</td>
+
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->username }}</td>
+                                            <td>{{ $item->email }}</td>
+                                            <td>{{ $item->phone }}</td>
+                                            <td>
+                                                @foreach ($item->getRoleNames() as $role)
+                                                    <a
+                                                        href="/admin/roles?search={{ $role }}">{{ $role }}</a><br>
+                                                @endforeach
+
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input type="checkbox"
+                                                        data-url="{{ route('admin.users.status', $item->id) }}"
+                                                        data-id="{{ $item->id }}" class="form-check-input changeStatus"
+                                                        id="exampleCheck{{ $item->id }}"
+                                                        @if ($item->enable) checked @endif>
+                                                    <label class="form-check-label" for="exampleCheck{{ $item->id }}">
+                                                        {{ __('enable') }} </label>
+                                                </div>
+                                            </td>
+                                            <td>{{ (new Shamsi())->jdate($item->created_at, true) }}</td>
+
+                                            <td class="project-actions">
+                                                <a class="btn btn-info btn-sm"
+                                                    href="{{ route('admin.users.edit', $item->id) }}">
+                                                    <i class="fas fa-pen"></i>
+                                                    {{ __('Edit') }}
+                                                </a>
+                                               
+                                                <form action="{{ route('admin.users.destroy', $item->id) }}"
+                                                    class="d-inline-block" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" onclick="swalConfirmDelete(this)"
+                                                        class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i>
+                                                        {{ __('admin.delete') }}
+                                                    </button>
+                                                </form>
+
+
+                                            </td>
+
+                                        </tr>
+                                    @elseif (auth()->user()->hasRole('supervisor'))
                                         @if ($item->supervisor()->first()?->id == auth()->user()->id)
                                             <tr>
 
@@ -118,7 +194,11 @@
                                                         <i class="fas fa-pen"></i>
                                                         {{ __('Edit') }}
                                                     </a>
-
+                                                    <a class="btn btn-warning btn-sm"
+                                                    href="{{ route('admin.users.stats', $item->id) }}">
+                                                    <i class="fas fa-bars"></i>
+                                                    {{ __('Stats') }}
+                                                </a>
                                                     <form action="{{ route('admin.users.destroy', $item->id) }}"
                                                         class="d-inline-block" method="POST">
                                                         @csrf
@@ -135,63 +215,6 @@
 
                                             </tr>
                                         @endif
-                                    @else
-                                        <tr>
-                                            <td>
-                                                @if ($item->hasRole('supervisor'))
-                                                    👨‍💼
-                                                    @endif @if ($item->hasRole('admin'))
-                                                        ⭐
-                                                    @endif{{ $item->id }}
-                                            </td>
-                                            <td>{{ $item->system_id }}</td>
-
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->username }}</td>
-                                            <td>{{ $item->email }}</td>
-                                            <td>{{ $item->phone }}</td>
-                                            <td>
-                                                @foreach ($item->getRoleNames() as $role)
-                                                    <a
-                                                        href="/admin/roles?search={{ $role }}">{{ $role }}</a><br>
-                                                @endforeach
-
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input type="checkbox"
-                                                        data-url="{{ route('admin.users.status', $item->id) }}"
-                                                        data-id="{{ $item->id }}" class="form-check-input changeStatus"
-                                                        id="exampleCheck{{ $item->id }}"
-                                                        @if ($item->enable) checked @endif>
-                                                    <label class="form-check-label" for="exampleCheck{{ $item->id }}">
-                                                        {{ __('enable') }} </label>
-                                                </div>
-                                            </td>
-                                            <td>{{ (new Shamsi())->jdate($item->created_at, true) }}</td>
-
-                                            <td class="project-actions">
-                                                <a class="btn btn-info btn-sm"
-                                                    href="{{ route('admin.users.edit', $item->id) }}">
-                                                    <i class="fas fa-pen"></i>
-                                                    {{ __('Edit') }}
-                                                </a>
-
-                                                <form action="{{ route('admin.users.destroy', $item->id) }}"
-                                                    class="d-inline-block" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" onclick="swalConfirmDelete(this)"
-                                                        class="btn btn-danger btn-sm">
-                                                        <i class="fas fa-trash"></i>
-                                                        {{ __('admin.delete') }}
-                                                    </button>
-                                                </form>
-
-
-                                            </td>
-
-                                        </tr>
                                     @endif
 
                                 @endforeach

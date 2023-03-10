@@ -54,6 +54,8 @@
                             <input type="text" value="{{ old('area') }}" name="area"
                                 class="form-control @error('area') is-invalid @enderror" required>
                         </div>
+
+                        
                         <div class="form-group col-lg-3">
                             <label>{{__("Status")}}</label>
 
@@ -62,13 +64,25 @@
                                 <option value="1">{{__("Done") }}</option>
                             </select>
                         </div>
+
+                        <div class="form-group col-lg-3">
+                            <label>{{ __('Lat') }}</label>
+
+                            <input class="form-control" type="text" name="x" value="35.69522525087309" required>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label>{{ __('Lng') }}</label>
+
+                            <input class="form-control" type="text" name="y" value="51.286239624023445" required>
+
+                        </div>
                         <div class="form-group col-lg-12">
                             <label>{{__("Address")}}</label>
 
                             <div id="app"></div>
                         </div>
-                        <input type="hidden" name="x" value="36">
-                        <input type="hidden" name="y" value="36">
+                        
 
                     </div>
                 </div>
@@ -101,36 +115,43 @@
             $("form").submit();
 
         });
-        $(document).ready(function() {
-          
-            var app = new Mapp({
-                element: '#app',
-                presets: {
-                    latlng: {
-                        lat: 32,
-                        lng: 52,
-                    },
-                    zoom: 6
-                },
-                i18n: {
-                    fa: {
-                        'marker-title': 'مکان انتخاب شده',
-                        'marker-description': '--',
-                    },
-                    en: {
-                        'marker-title': 'Title',
-                        'marker-description': 'Description',
-                    },
-                },
-                locale: 'en',
-                apiKey: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImNiZTA1YWY0OWYyNWM0OTU5NDE2ZmI2YmI4ODk1ZGQ4NTU5ZjExYWY4ZDBiY2YwYjc1MjhjOGRiM2YzNGNiMmM5M2ZmNGEzZjNiY2NiZWU3In0.eyJhdWQiOiIyMTMzOSIsImp0aSI6ImNiZTA1YWY0OWYyNWM0OTU5NDE2ZmI2YmI4ODk1ZGQ4NTU5ZjExYWY4ZDBiY2YwYjc1MjhjOGRiM2YzNGNiMmM5M2ZmNGEzZjNiY2NiZWU3IiwiaWF0IjoxNjc3Nzc5MTk2LCJuYmYiOjE2Nzc3NzkxOTYsImV4cCI6MTY4MDE5ODM5Niwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.lXVgHpKUJ6p_Lcdnyr6JkVdzYN8voi3MWRknj4KSX0OF9M84Jgy_H5pMJcymI4UmEMm7pxvVo6_eH8puGG6ERlqlqomMvRBluayYHqsflMj7MRwJCCZ1Kx3UK8PV7A03I6MevVV7k_etCQVjgTFCCG3_9JXznWVoHrK6UdX8lnLHZ3ZCyX0OyssP8-CTEqcSwYG6ohR43twAhwjbQaiq0SVfSoVjVXqgDrobjNEm8GEIzJOxfqliGmH8W5YLYZzw4QZyMSlv8VoQ-cNKExNpBcSwtCxQzwlFhtp-ZJcfu2Qnd8tcZNZgRLPKwz2ygTr6dUfJPD9P9TeJd0i_WDgzkQ'
-            });
-            app.addLayers();
-            marker = app.addMarker({
+        $("[name=x]").change(function() {
+            app.addMarker({
                 name: 'advanced-marker',
                 latlng: {
-                    lat: 37.375,
-                    lng: 49.759,
+                    lat: $(this).val(),
+                    lng: $("[name=y]").val(),
+                },
+                icon: app.icons.red,
+                popup: {
+                    title: {
+                        i18n: 'marker-title',
+                    },
+                    description: {
+                        i18n: 'marker-description',
+                    },
+                    class: 'marker-class',
+                    open: true,
+                },
+                pan: false,
+                draggable: true,
+                history: false,
+                on: {
+                    click: function() {
+                        console.log('Click callback');
+                    },
+                    contextmenu: function() {
+                        console.log('Contextmenu callback');
+                    },
+                },
+            });
+        })
+        $("[name=y]").change(function() {
+            app.addMarker({
+                name: 'advanced-marker',
+                latlng: {
+                    lat: $("[name=x]").val(),
+                    lng: $(this).val(),
                 },
                 icon: app.icons.red,
                 popup: {
@@ -156,6 +177,67 @@
                     },
                 },
             });
+        })
+        var app;
+        $(document).ready(function() {
+
+            app = new Mapp({
+                element: '#app',
+                presets: {
+                    latlng: {
+                        lat: "35.69522525087309",
+                    lng: "51.286239624023445",
+                    },
+                    zoom: 6
+                },
+                i18n: {
+                    fa: {
+                        'marker-title': 'مکان انتخاب شده',
+                        'marker-description': '--',
+                    },
+                    en: {
+                        'marker-title': 'Title',
+                        'marker-description': 'Description',
+                    },
+                },
+                locale: 'en',
+                apiKey: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImNiZTA1YWY0OWYyNWM0OTU5NDE2ZmI2YmI4ODk1ZGQ4NTU5ZjExYWY4ZDBiY2YwYjc1MjhjOGRiM2YzNGNiMmM5M2ZmNGEzZjNiY2NiZWU3In0.eyJhdWQiOiIyMTMzOSIsImp0aSI6ImNiZTA1YWY0OWYyNWM0OTU5NDE2ZmI2YmI4ODk1ZGQ4NTU5ZjExYWY4ZDBiY2YwYjc1MjhjOGRiM2YzNGNiMmM5M2ZmNGEzZjNiY2NiZWU3IiwiaWF0IjoxNjc3Nzc5MTk2LCJuYmYiOjE2Nzc3NzkxOTYsImV4cCI6MTY4MDE5ODM5Niwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.lXVgHpKUJ6p_Lcdnyr6JkVdzYN8voi3MWRknj4KSX0OF9M84Jgy_H5pMJcymI4UmEMm7pxvVo6_eH8puGG6ERlqlqomMvRBluayYHqsflMj7MRwJCCZ1Kx3UK8PV7A03I6MevVV7k_etCQVjgTFCCG3_9JXznWVoHrK6UdX8lnLHZ3ZCyX0OyssP8-CTEqcSwYG6ohR43twAhwjbQaiq0SVfSoVjVXqgDrobjNEm8GEIzJOxfqliGmH8W5YLYZzw4QZyMSlv8VoQ-cNKExNpBcSwtCxQzwlFhtp-ZJcfu2Qnd8tcZNZgRLPKwz2ygTr6dUfJPD9P9TeJd0i_WDgzkQ'
+            });
+            app.addLayers();
+            marker = app.addMarker({
+                name: 'advanced-marker',
+                latlng: {
+                    lat: "35.69522525087309",
+                    lng: "51.286239624023445",
+                },
+                icon: app.icons.red,
+                popup: {
+                    title: {
+                        i18n: 'marker-title',
+                    },
+                    description: {
+                        i18n: 'marker-description',
+                    },
+                    // custom: 'Custom popup',
+                    class: 'marker-class',
+                    open: true,
+                },
+                pan: false,
+                draggable: true,
+                history: false,
+                on: {
+                    click: function() {
+                        $("[name=x]").val(marker.getLatLng().lat);
+                        $("[name=y]").val(marker.getLatLng().lng);
+                    },
+                    contextmenu: function() {
+                        console.log('Contextmenu callback');
+                    },
+                  
+                },
+            });
+          
         });
+     
     </script>
 @endpush

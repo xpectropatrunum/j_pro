@@ -79,7 +79,7 @@
                                             </td>
 
                                             <td>{{ (new Shamsi())->jdate($item->date . ' ' . $item->time) }} </td>
-                                            <td>{{ $item->leave ? (new Shamsi())->jdate($item->leaves_created_at ?: $item->leave->created_at) : '--' }}
+                                            <td>{{ $item->leave_time ? (new Shamsi())->jdate($item->leave_time):"--" }}
                                             </td>
 
 

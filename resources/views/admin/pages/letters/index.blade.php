@@ -84,7 +84,7 @@
                                     <th>{{ __('Number') }}</th>
                                     <th>{{ __('Company') }}</th>
                                     <th>{{ __('Created Date') }}</th>
-                                    <th>{{ __('User') }}</th>
+                                    <th>{{ __('Worker') }}</th>
                                     {{--  <th>{{ __('admin.created_date') }}</th>  --}}
                                     {{--  <th>{{ __('admin.actions') }}</th>  --}}
                                 </tr>

@@ -30,15 +30,16 @@ class LetterController extends Controller
         $limit = 10;
 
 
-        if (auth()->user()->hasRole("supervisor")) {
+        if (auth()->user()->hasRole("admin")) {
+            $query = Letter::latest();
+            
+        } else {
             $query = Letter::query();
 
             $query =  $query
                 ->join('users', 'letters.user_id', '=', 'users.id')
                 ->join('supervisor_user', 'users.id', '=', 'supervisor_user.user_id')
                 ->where('supervisor_user.supervisor_id', '=', auth()->user()->id);
-        } else {
-            $query = Letter::latest();
         }
 
 

@@ -66,6 +66,8 @@ Route::prefix("admin")->name("admin.")->group(function () {
 
         Route::resource('users', UserController::class);
         Route::post('users/{user}/status', [UserController::class, "changeStatus"])->name("users.status");
+        Route::get('users/{user}/stats', [UserController::class, "getStats"])->name("users.stats");
+        Route::get('users/{user}/stats/excel', [UserController::class, "statsExcel"])->name("users.stats.excel");
 
         Route::resource('roles', RolesController::class);
         Route::resource('permissions', PermissionsController::class);

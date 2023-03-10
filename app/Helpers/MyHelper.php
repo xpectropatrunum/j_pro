@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Helpers;
 
 class MyHelper
@@ -10,17 +11,33 @@ class MyHelper
         $offsetInSecs = timezone_offset_get($current, $utcTime);
         $hoursAndSec = gmdate('H:i', abs($offsetInSecs));
         return stripos($offsetInSecs, '-') === false ? "+{$hoursAndSec}" : "-{$hoursAndSec}";
-    }static function fa_to_en($string) {
+    }
+    static function fa_to_en($string)
+    {
         $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
         $arabic = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-    
+
         $num = range(0, 9);
         $convertedPersianNums = str_replace($persian, $num, $string);
         $englishNumbersOnly = str_replace($arabic, $num, $convertedPersianNums);
-        
+
         return $englishNumbersOnly;
     }
-    
+    static function dateOfMonths()
+    {
+        $month = (new Shamsi)->jNumber()[1];
+        $year = (new Shamsi)->jNumber()[0];
+        $out = [];
+        foreach (range(1, 30) as $day) {
+            $out[] = (object)[
+                "date" => $year . "/" . $month . "/" . $day,
+                "weekday" => __(date("D", strtotime((new Shamsi)->jalali_to_gregorian($year . "/" . $month . "/" . $day)))),
+                "index" => date("w", strtotime((new Shamsi)->jalali_to_gregorian($year . "/" . $month . "/" . $day))),
+                "unix" => strtotime((new Shamsi)->jalali_to_gregorian($year . "/" . $month . "/" . $day))
+            ];
+        }
+        return $out;
+    }
     static function mt_($num)
     {
         return bcdiv($num / 10000000, 2);
@@ -52,5 +69,4 @@ class MyHelper
 
         return number_format($n);
     }
-
 }

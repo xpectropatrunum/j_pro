@@ -18,7 +18,8 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            {{ __('Users') }}
+                            @role("supervisor") {{ __('Workers') }} @endrole
+                            @role("admin") {{ __('Users') }} @endrole
 
                             <i class="right fas fa-angle-left"></i>
                         </p>
@@ -29,7 +30,8 @@
                             <a href="{{ route('admin.users.index') }}"
                                 class="nav-link {{ request()->routeIs(['admin.users.index']) ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>{{ __('admin.all') }} {{ __('Users') }}
+                                <p>{{ __('admin.all') }}   @role("supervisor") {{ __('Workers') }} @endrole
+                                    @role("admin") {{ __('Users') }} @endrole
                                 </p>
                             </a>
                         </li>
@@ -226,6 +228,7 @@
 
                     </ul>
                 </li>
+                @role("supervisor")
                 <li class="nav-item has-treeview {{ request()->routeIs(['admin.letters.*']) ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-envelope fas"></i>
@@ -253,6 +256,7 @@
 
                     </ul>
                 </li>
+                @endrole
 
                 <li class="nav-item has-treeview {{ request()->routeIs(['admin.offs.*']) ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">

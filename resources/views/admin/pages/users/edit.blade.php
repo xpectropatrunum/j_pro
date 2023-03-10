@@ -82,6 +82,15 @@
                                 </select>
                             </div>
                             @endif
+
+                            <div class="form-group col-lg-3">
+                                <label>{{__("Remotable")}}</label>
+                                <div class="form-check">
+                                    <input type="checkbox" name="remotable" class="form-check-input" value="1" id="exampleCheck2" @if(old('enabled', $user->remotable)) checked @endif>
+                                    <label class="form-check-label" for="exampleCheck2">بله</label>
+                                </div>
+                            </div>
+                           
                             <div class="form-group col-lg-3">
                                 <label>{{__("Password")}}</label>
                                 <input type="password" value="{{ old('password') }}" name="password" class="form-control @error('password') is-invalid @enderror" >

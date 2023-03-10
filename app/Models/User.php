@@ -23,6 +23,7 @@ class User extends Authenticatable
         'username',
         'phone',
         'email',
+        'remotable',
         'password',
         'system_id',
         'enable',
@@ -57,6 +58,9 @@ class User extends Authenticatable
     }
     function offs(){
         return $this->hasMany(Off::class, "user_id", "id");
+    }
+    function manual_logs(){
+        return $this->hasMany(ManualLog::class);
     }
     function leaves(){
         return $this->hasManyThrough(Leave::class, Log::class);

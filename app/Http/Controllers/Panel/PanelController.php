@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Helpers\MyHelper;
+use App\Helpers\Shamsi;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Log;
@@ -56,27 +57,54 @@ class PanelController extends Controller
     }
     public function log_submit(Request $request)
     {
-        $request->validate([
-            "lat" => "required",
-            "lng" => "required",
-            "project" => "required",
-        ], [
-            "lat.required" => "موقعیت مکانی ارسال نشده است",
-            "lng.required" => "موقعیت مکانی ارسال نشده است",
-        ]);
-        if (!$request->time) {
-            $request->merge([
-                "time" => date("H:i")
+        if (!auth()->user()->remotable) {
+            $request->validate([
+                "lat" => "required",
+                "lng" => "required",
+                "project" => "required",
+            ], [
+                "lat.required" => "موقعیت مکانی ارسال نشده است",
+                "lng.required" => "موقعیت مکانی ارسال نشده است",
+            ]);
+        } else {
+            $request->validate([
+                "project" => "required",
             ]);
         }
 
+        if (!$request->time) {
+
+            $request->merge([
+                "time" => date("H:i")
+            ]);
+        } else {
+            $manual_count = auth()->user()->manual_logs()->where("month_number", (new Shamsi)->jMonthNumber())->count();
+
+            if ($manual_count < env("MAX_MANUAL_COUNT")) {
+                auth()->user()->manual_logs()->create(["month_number" => (new Shamsi)->jMonthNumber()]);
+            } else {
+                return redirect()->back()->withError("شما از تایم دستی در این ماه استفاده کردید");
+            }
+        }
         $project = auth()->user()->supervisor()->first()->projects()->findOrFail($request->project);
 
-        $distance = ($this->haversineGreatCircleDistance($project->x, $project->y, $request->lat, $request->lng));
+        if (!auth()->user()->remotable) {
+            $match = 0;
+            foreach (auth()->user()->supervisor()->first()->projects as $item) {
+                $distance = ($this->haversineGreatCircleDistance($item->x, $item->y, $request->lat, $request->lng));
 
-        if ($distance > $project->area) {
-            return redirect()->back()->withError("شما در محدوده مجاز پروژه قرار ندارید");
+
+
+                if ($distance <= $item->area) {
+                    $match = 1;
+                    break;
+                }
+            }
+            if ($match == 0) {
+                return redirect()->back()->withError("شما در محدوده مجاز هیچ یک از پروژه ها قرار ندارید");
+            }
         }
+
         $have_log = auth()->user()->logs()->where(["date" => date("Y-m-d")])->latest()->first();
         if ($have_log) {
             //  return redirect()->back()->withError("یک مورد ورود ثبت شده");
@@ -105,19 +133,23 @@ class PanelController extends Controller
             "note.required" => "گزارش کار ضروری می باشد",
         ]);
 
-        if($request->fee && !is_numeric($request->fee)){
+        if ($request->fee && !is_numeric($request->fee)) {
             return redirect()->back()->withError("هزینه ایاب ذهاب معتبر نمی باشد");
-
         }
+
+
 
         $log = auth()->user()->logs()->where(["date" => date("Y-m-d")])->latest()->firstOrFail();
         $project = $log->project;
 
-        $distance = ($this->haversineGreatCircleDistance($project->x, $project->y, $request->lat, $request->lng));
+        if (!auth()->user()->remotable) {
+            $distance = ($this->haversineGreatCircleDistance($project->x, $project->y, $request->lat, $request->lng));
 
-        if ($distance > $project->area) {
-            return redirect()->back()->withError("شما در محدوده مجاز پروژه قرار ندارید");
+            if ($distance > $project->area) {
+                return redirect()->back()->withError("شما در محدوده مجاز پروژه قرار ندارید");
+            }
         }
+
 
 
         $leave =  $log->leave()->create($request->all());
@@ -138,9 +170,8 @@ class PanelController extends Controller
             "title.required" => "عنوان نامه ضروری می باشد",
             "date.required" => "تاریخ نامه ضروری می باشد",
         ]);
-        $number = (auth()->user()->supervisor()->first()->super_letters()->latest()->first()?->number ?? (
-            auth()->user()->supervisor()->first()->setting->letter_start_from ?? 10000
-            )) + 1;
+        $number = (auth()->user()->supervisor()->first()->super_letters()->latest()->first()?->number ?? (auth()->user()->supervisor()->first()->setting->letter_start_from ?? 10000
+        )) + 1;
         $log = auth()->user()->logs()->where(["date" => date("Y-m-d")])->latest()->firstOrFail();
 
         $letter = auth()->user()->letters()->create(

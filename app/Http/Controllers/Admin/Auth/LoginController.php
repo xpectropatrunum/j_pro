@@ -18,10 +18,14 @@ class LoginController extends Controller
 
     public function index()
     {
-        // $admin = User::find(1);
-        // $role = Role::find(1);
+        //  $admin = User::find(1);
+        //  $admin->password = Hash::make("123");
+        //  $admin->save();
+        // // $role = Role::find(1);
      
+      
         // $permissions = Permission::pluck('id','id')->all();
+       
    
         // $role->syncPermissions($permissions);
      
@@ -38,7 +42,7 @@ class LoginController extends Controller
             $fieldType => $request->username
         ]);
 
-        if (Auth::attempt($request->only($fieldType, 'password'), $request->filled('remember'))) {
+        if (Auth::attempt($request->only($fieldType, 'password'))) {
             return redirect()
                 ->intended(route('admin.dashboard'))
                 ->with('status', __('admin.login_success'));
