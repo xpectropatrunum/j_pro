@@ -190,7 +190,7 @@ class UserController extends Controller
             ]);
         } else {
             $request->merge([
-                "password" => Hash::make($user->password),
+                "password" => $user->password,
             ]);
         }
         if (!$request->remotable) {
