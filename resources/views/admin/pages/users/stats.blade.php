@@ -29,7 +29,7 @@
                     <h3 class="card-title">کارمند {{ $user->name }}</h3>
                 </div>
                 <div class="card-body p-3">
-                    مجموع ساعات کاری: {{ gmdate('H:i', $times) }}
+                    مجموع ساعات کاری: {{ gmdate('d H:i', $times) }}
                     <a href="{{ route('admin.users.stats.excel', $user->id) }}"><button type="button"
                             class="btn btn-primary">{{ __('Download Excel') }}</button></a>
 

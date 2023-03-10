@@ -124,7 +124,7 @@
                                     <td>
                                     </td>
                                     <td>
-                                        {{ gmdate('H:i', $times) }}
+                                        {{ gmdate('d H:i', $times) }}
                                     </td>
 
                                 </tr>
