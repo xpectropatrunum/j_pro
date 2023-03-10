@@ -23,15 +23,15 @@
             <div class="card">
 
 
-               
+
 
                 <div class="card-header d-flex align-items-center px-3">
                     <h3 class="card-title">کارمند {{ $user->name }}</h3>
                 </div>
                 <div class="card-body p-3">
-                    مجموع ساعات کاری: {{gmdate("H:i", $times)}}
+                    مجموع ساعات کاری: {{ gmdate('H:i', $times) }}
                     <a href="{{ route('admin.users.stats.excel', $user->id) }}"><button type="button"
-                        class="btn btn-primary">{{ __('Download Excel') }}</button></a>
+                            class="btn btn-primary">{{ __('Download Excel') }}</button></a>
 
                     <div class="table-responsive mt-2">
                         <table class="table table-striped table-bordered mb-0 text-nowrap">
@@ -43,6 +43,7 @@
                                     <th>{{ __('Login') }}</th>
                                     <th>{{ __('Logout') }}</th>
                                     <th>{{ __('Off') }}</th>
+                                    <th>{{ __('Transfer fee') }}</th>
                                     <th>{{ __('Company 1') }}</th>
                                     <th>{{ __('Company 2') }}</th>
                                     <th>{{ __('Company 3') }}</th>
@@ -63,6 +64,7 @@
                                             ->leaves()
                                             ->where('leaves.created_at', $item->date)
                                             ->get();
+                                        
                                         $off = $user
                                             ->offs()
                                             ->where(DB::raw('(date)'), $item->date)
@@ -78,7 +80,7 @@
                                         <td>{{ $item->date }}</td>
                                         <td>{{ $item->weekday }}</td>
                                         <td>
-                                            @if ($item->index == 5 || $item->index == 6)
+                                            @if ($item->index == 5 || $item->index == 4)
                                                 تعطیل
                                             @elseif($logs->first())
                                                 ✔️
@@ -105,7 +107,10 @@
                                                 {{ $off->time ?: 'یک روز' }}
                                             @endif
                                         </td>
+                                        <td>
+                                            {{ $logs->first()?->leave  ? number_format($logs->first()->leave->fee ) : "--"}}
 
+                                        </td>
                                         <td>
                                             {{ $companies[0] ?? '--' }}
                                         </td>

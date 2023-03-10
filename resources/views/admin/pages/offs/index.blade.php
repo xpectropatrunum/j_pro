@@ -64,11 +64,12 @@
                             </thead>
                             <tbody>
                             @foreach($items as $item)
+                            @if ($item->user->supervisor()->first()?->id == auth()->user()->id)
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <td><a href="{{ route("admin.users.index", ["search" => $item->user_id]) }}">{{ $item->user->name }}</a></td>
 
-                                    <td>{{ $item->date}} ({{ $item->time ? $item->time:"1 day"}})</td>
+                                    <td>{{ $item->date}} ({{ $item->time ? $item->time:"1 روزه"}})</td>
                                     
                                     <td>{{ (new Shamsi)->jdate($item->created_at) }}</td>
                                     {{--  <td class="project-actions">
@@ -84,6 +85,7 @@
                                         </form>
                                     </td>  --}}
                                 </tr>
+                                @endif
                             @endforeach
                             </tbody>
                         </table>

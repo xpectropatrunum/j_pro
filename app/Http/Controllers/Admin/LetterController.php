@@ -34,7 +34,7 @@ class LetterController extends Controller
             $query = Letter::latest();
             
         } else {
-            $query = Letter::query();
+            $query = Letter::latest("letters.created_at");
 
             $query =  $query
                 ->join('users', 'letters.user_id', '=', 'users.id')

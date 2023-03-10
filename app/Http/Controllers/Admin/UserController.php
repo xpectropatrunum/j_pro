@@ -55,28 +55,31 @@ class UserController extends Controller
 
         return view('admin.pages.users.index', compact('items', 'search', 'limit'));
     }
-    function statsExcel(User $user){
+    function statsExcel(User $user)
+    {
 
 
         $dates = MyHelper::dateOfMonths();
 
         $times = 0;
+        $fees = 0;
         foreach ($dates as $date) {
             $logs = $user
                 ->logs()
                 ->where(\DB::raw('UNIX_TIMESTAMP(date)'), $date->unix)
                 ->get();
-
             foreach ($logs as $log) {
                 $times += $log->duration_in_seconds;
+                $fees += $log->leave?->fee ?? 0;
             }
+           
+
         }
 
+    
 
         $time = time();
-        return Excel::download(new UserStats($dates, $user, $times), "user_stats_{$time}.xlsx");
-
-    
+        return Excel::download(new UserStats($dates, $user, $times, $fees), "user_stats_{$time}.xlsx");
     }
 
 
@@ -100,18 +103,22 @@ class UserController extends Controller
         $dates = MyHelper::dateOfMonths();
 
         $times = 0;
+        $fees = 0;
         foreach ($dates as $date) {
             $logs = $user
                 ->logs()
                 ->where(\DB::raw('UNIX_TIMESTAMP(date)'), $date->unix)
                 ->get();
-
+               
             foreach ($logs as $log) {
                 $times += $log->duration_in_seconds;
+                $fees += $log->leave?->fee ?? 0;
             }
+
+
         }
 
-        return view("admin.pages.users.stats", compact("dates", "user", "times"));
+        return view("admin.pages.users.stats", compact("dates", "user", "times", "fees"));
     }
     /**
      * Store a newly created resource in storage.

@@ -38,16 +38,8 @@ class OffController extends Controller
         $limit = 10;
 
 
-        if (auth()->user()->hasRole("supervisor")) {
-            $query = Off::query();
-
-            $query =  $query
-                ->join('users', 'offs.user_id', '=', 'users.id')
-                ->join('supervisor_user', 'users.id', '=', 'supervisor_user.user_id')
-                ->where('supervisor_user.supervisor_id', '=', auth()->user()->id);
-        } else {
             $query = Off::latest();
-        }
+    
 
 
         if ($request->search) {

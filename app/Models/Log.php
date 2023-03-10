@@ -57,7 +57,7 @@ class Log extends Model
         if (!$this->leave) {
             $end_time = $this->user->supervisor()->first()->setting?->end_time ?? "17:00";
             if (time() - strtotime($this->date  . " " . $end_time) > 0) {
-                $r = gmdate("H:i:s",  strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time));
+                $r = gmdate("H:i:s",  abs(strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time)));
                 if (strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time) > 0) {
                     return $r;
                 }
@@ -65,14 +65,14 @@ class Log extends Model
 
             return 0;
         }
-        return gmdate("H:i:s", strtotime($this->leave->created_at) - strtotime($this->date . " " . $this->time));
+        return gmdate("H:i:s", abs(strtotime($this->leave->created_at) - strtotime($this->date . " " . $this->time)));
     }
     function getDurationInSecondsAttribute()
     {
         if (!$this->leave) {
             $end_time = $this->user->supervisor()->first()->setting?->end_time ?? "17:00";
             if (time() - strtotime($this->date  . " " . $end_time) > 0) {
-                $r = strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time);
+                $r = abs(strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time));
                 if (strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time) > 0) {
                     return $r;
                 }
@@ -80,6 +80,6 @@ class Log extends Model
 
             return 0;
         }
-        return strtotime($this->leave->created_at) - strtotime($this->date . " " . $this->time);
+        return abs(strtotime($this->leave->created_at) - strtotime($this->date . " " . $this->time));
     }
 }

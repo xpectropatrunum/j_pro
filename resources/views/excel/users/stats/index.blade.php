@@ -13,6 +13,7 @@
                                     <th>{{ __('Login') }}</th>
                                     <th>{{ __('Logout') }}</th>
                                     <th>{{ __('Off') }}</th>
+                                    <th>{{ __('Transfer fee') }}</th>
                                     <th>{{ __('Company 1') }}</th>
                                     <th>{{ __('Company 2') }}</th>
                                     <th>{{ __('Company 3') }}</th>
@@ -48,7 +49,7 @@
                                         <td>{{ $item->date }}</td>
                                         <td>{{ $item->weekday }}</td>
                                         <td>
-                                            @if ($item->index == 5 || $item->index == 6)
+                                            @if ($item->index == 5 || $item->index == 4)
                                                 تعطیل
                                             @elseif($logs->first())
                                                 ✔️
@@ -75,7 +76,9 @@
                                                 {{ $off->time ?: 'یک روز' }}
                                             @endif
                                         </td>
-
+                                        <td>
+                                            {{ $logs->first()?->leave  ? number_format($logs->first()->leave->fee ) : "--"}}
+                                        </td>
                                         <td>
                                             {{ $companies[0] ?? '--' }}
                                         </td>
@@ -109,7 +112,9 @@
                                     <td>
 
                                     </td>
-
+                                    <td>
+                                        {{ number_format($fees) }}
+                                    </td>
                                     <td>
                                     </td>
                                     <td>

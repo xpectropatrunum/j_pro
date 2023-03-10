@@ -17,7 +17,7 @@
                 <span class="focus-bg"></span>
             </label>
             <label for="Fimehandi" class="inp">
-                <input name="time" type="time" id="Fimehandi" value="none" placeholder="&nbsp;">
+                <input name="time" type="time" id="Fimehandi"  placeholder="&nbsp;">
                 <span class="label1">مرخصی ساعتی</span>
                 <span class="focus-bg"></span>
             </label>
