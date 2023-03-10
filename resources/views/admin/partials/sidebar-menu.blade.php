@@ -120,7 +120,7 @@
                 </li>
             @endrole
 
-            @role([ 'admin'])
+            @role(['supervisor'])
                 <li
                     class="nav-item has-treeview {{ request()->routeIs(['admin.leaves.*', 'admin.logs.*']) ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
