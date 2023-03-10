@@ -70,7 +70,7 @@ class UserController extends Controller
                 ->get();
             foreach ($logs as $log) {
                 $times += $log->duration_in_seconds;
-                $fees += $log->leave?->fee ?? 0;
+                $fees += intval($log->leave?->fee ?? 0);
             }
            
 
@@ -112,7 +112,7 @@ class UserController extends Controller
                
             foreach ($logs as $log) {
                 $times += $log->duration_in_seconds;
-                $fees += $log->leave?->fee ?? 0;
+                $fees += intval($log->leave?->fee ?? 0);
             }
 
 
