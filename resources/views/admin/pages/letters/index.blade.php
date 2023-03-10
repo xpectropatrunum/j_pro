@@ -29,7 +29,7 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <div class="input-group input-group-sm col-lg-3">
+                            <div class="input-group input-group-sm col-lg-1">
                                 <select name="limit" class="custom-select select2">
                                     <option value="10" @if ($limit == 10) selected @endif>10</option>
                                     <option value="25" @if ($limit == 25) selected @endif>25</option>
@@ -38,8 +38,13 @@
                                     <option value="200" @if ($limit == 200) selected @endif>200</option>
                                 </select>
                             </div>
-
-                            <div class="input-group input-group-sm col-lg-3">
+                            <div class="input-group input-group-sm col-lg-2">
+                                <input value="{{ $title }}" name="title" type="text" placeholder="عنوان">
+                            </div>
+                            <div class="input-group input-group-sm col-lg-2">
+                                <input value="{{ $number }}" name="number" type="text" placeholder="شماره نامه">
+                            </div>
+                            <div class="input-group input-group-sm col-lg-2">
                                 <select name="company" class="custom-select select2">
                                     <option value="0">{{ __('Select company') }}</option>
                                     @foreach (\App\Models\Project::get() as $item)
@@ -50,7 +55,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="input-group input-group-sm col-lg-3">
+                            <div class="input-group input-group-sm col-lg-2">
                                 <select name="user" class="custom-select select2">
                                     <option value="0">{{ __('Select user') }}</option>
                                     @foreach (\App\Models\User::get() as $item)

@@ -49,6 +49,14 @@ class LetterController extends Controller
         if ($user = $request->user) {
             $query->where("letters.user_id", $request->user);
         }
+        if ($title = $request->title) {
+            $query->whereHas("letter_subject", function($query) use($title ){
+                 $query->where("title", "LIKE", "%$title%");
+            });
+        }
+        if ($number = $request->number) {
+            $query->where("letters.number", $request->number);
+        }
         if ($company = $request->company) {
             $query->where("project_id", $request->company);
 
@@ -61,7 +69,7 @@ class LetterController extends Controller
 
 
 
-        return view('admin.pages.letters.index', compact('items', 'search', 'limit', 'user', 'date', 'company'));
+        return view('admin.pages.letters.index', compact('items', 'search', 'limit', 'user', 'date', 'company', 'title', 'number'));
     }
     public function excel(Request $request)
     {
