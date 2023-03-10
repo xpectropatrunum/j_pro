@@ -108,7 +108,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            {{ $logs->first()?->leave  ? number_format($logs->first()->leave->fee ) : "--"}}
+                                            {{ $logs->first()?->leave  ? ($logs->first()->leave->fee > 0 ? number_format($logs->first()->leave->fee ): "--") : "--"}}
 
                                         </td>
                                         <td>
