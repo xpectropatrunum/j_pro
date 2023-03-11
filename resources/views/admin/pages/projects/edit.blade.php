@@ -119,67 +119,19 @@
 
         });
         $("[name=x]").change(function() {
-            app.addMarker({
-                name: 'advanced-marker',
-                latlng: {
-                    lat: $(this).val(),
-                    lng: $("[name=y]").val(),
-                },
-                icon: app.icons.red,
-                popup: {
-                    title: {
-                        i18n: 'marker-title',
-                    },
-                    description: {
-                        i18n: 'marker-description',
-                    },
-                    class: 'marker-class',
-                    open: true,
-                },
-                pan: false,
-                draggable: true,
-                history: false,
-                on: {
-                    click: function() {
-                        console.log('Click callback');
-                    },
-                    contextmenu: function() {
-                        console.log('Contextmenu callback');
-                    },
-                },
-            });
+
+            marker.setLatLng({
+                lng: $("[name=y]").val(),
+                lat: $("[name=x]").val(),
+            })
         })
         $("[name=y]").change(function() {
-            app.addMarker({
-                name: 'advanced-marker',
-                latlng: {
-                    lat: $("[name=x]").val(),
-                    lng: $(this).val(),
-                },
-                icon: app.icons.red,
-                popup: {
-                    title: {
-                        i18n: 'marker-title',
-                    },
-                    description: {
-                        i18n: 'marker-description',
-                    },
-                    // custom: 'Custom popup',
-                    class: 'marker-class',
-                    open: true,
-                },
-                pan: false,
-                draggable: true,
-                history: false,
-                on: {
-                    click: function() {
-                        console.log('Click callback');
-                    },
-                    contextmenu: function() {
-                        console.log('Contextmenu callback');
-                    },
-                },
-            });
+            marker.setLatLng({
+                lat: $("[name=x]").val(),
+                lng: $("[name=y]").val(),
+
+            })
+
         })
         var app;
         $(document).ready(function() {

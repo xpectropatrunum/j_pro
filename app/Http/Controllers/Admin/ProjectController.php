@@ -94,7 +94,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-
+    
         $request->validate([
             "name" => "required",
             "company_name" => "required",
@@ -102,6 +102,8 @@ class ProjectController extends Controller
             "x" => "required",
             "y" => "required",
         ]);
+
+        
 
 
 
