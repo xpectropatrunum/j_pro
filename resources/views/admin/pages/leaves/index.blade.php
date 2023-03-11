@@ -58,6 +58,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>{{ __('User') }}</th>
+                                    <th>{{ __('Company') }}</th>
                                     <th>{{ __('Project') }}</th>
                                     <th>{{ __('Login') }}</th>
                                     <th>{{ __('Logout') }}</th>
@@ -74,7 +75,9 @@
                                             <td><a
                                                     href="{{ route('admin.users.index', ['search' => $item->log->user_id]) }}">{{ $item->log->user->name }}</a>
                                             </td>
-
+                                            <td><a
+                                                href="{{ route('admin.projects.index', ['search' => $item->log->project->id]) }}">{{ $item->log->project->company_name }}</a>
+                                        </td>
                                             <td><a
                                                     href="{{ route('admin.projects.index', ['search' => $item->log->project->id]) }}">{{ $item->log->project->name }}</a>
                                             </td>

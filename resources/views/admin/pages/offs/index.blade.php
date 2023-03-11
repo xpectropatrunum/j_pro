@@ -59,7 +59,7 @@
                                 <th>{{ __('User') }}</th>
                                 <th>{{ __('For date') }}</th>
                                 <th>{{ __('admin.created_date') }}</th>
-                                {{--  <th>{{ __('admin.actions') }}</th>  --}}
+                                <th>{{ __('admin.actions') }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -72,10 +72,10 @@
                                     <td>{{ $item->date}} ({{ $item->time ? $item->time:"1 روزه"}})</td>
                                     
                                     <td>{{ (new Shamsi)->jdate($item->created_at) }}</td>
-                                    {{--  <td class="project-actions">
+                                    <td class="project-actions">
                                       
 
-                                        <form action="{{ route('admin.letters.destroy',$item->id) }}" class="d-inline-block" method="POST">
+                                        <form action="{{ route('admin.offs.destroy',$item->id) }}" class="d-inline-block" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" onclick="swalConfirmDelete(this)" class="btn btn-danger btn-sm">
@@ -83,7 +83,7 @@
                                                 {{ __('admin.delete') }}
                                             </button>
                                         </form>
-                                    </td>  --}}
+                                    </td>
                                 </tr>
                                 @endif
                             @endforeach

@@ -82,7 +82,11 @@
                                     <th>{{ __('Username') }}</th>
                                     <th>{{ __('Email') }}</th>
                                     <th>{{ __('Phone') }}</th>
-                                    <th>{{ __('Roles') }}</th>
+                                    @if (auth()->user()->hasRole('supervisor'))
+                                        <th>{{ __('Remotable') }}</th>
+                                    @else
+                                        <th>{{ __('Roles') }}</th>
+                                    @endif
                                     <th>{{ __('Enable') }}</th>
                                     <th>{{ __('Created Date') }}</th>
                                     <th>{{ __('Actions') }}</th>
@@ -93,66 +97,69 @@
                                 @foreach ($items as $item)
 
                                     @if (auth()->user()->hasRole('admin'))
-                                        <tr>
-                                            <td>
-                                                @if ($item->hasRole('supervisor'))
-                                                    👨‍💼
-                                                    @endif @if ($item->hasRole('admin'))
-                                                        ⭐
-                                                    @endif{{ $item->id }}
-                                            </td>
-                                            <td>{{ $item->system_id }}</td>
+                                        @if ($super_id)
+                                            @if ($item->supervisor()->first()?->id == $super_id)
+                                                <tr>
+                                                    <td>
+                                                        @if ($item->hasRole('supervisor'))
+                                                            👨‍💼
+                                                            @endif @if ($item->hasRole('admin'))
+                                                                ⭐
+                                                            @endif{{ $item->id }}
+                                                    </td>
+                                                    <td>{{ $item->system_id }}</td>
 
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->username }}</td>
-                                            <td>{{ $item->email }}</td>
-                                            <td>{{ $item->phone }}</td>
-                                            <td>
-                                                @foreach ($item->getRoleNames() as $role)
-                                                    <a
-                                                        href="/admin/roles?search={{ $role }}">{{ $role }}</a><br>
-                                                @endforeach
+                                                    <td>{{ $item->name }}</td>
+                                                    <td>{{ $item->username }}</td>
+                                                    <td>{{ $item->email }}</td>
+                                                    <td>{{ $item->phone }}</td>
+                                                    <td>
+                                                        @foreach ($item->getRoleNames() as $role)
+                                                            <a
+                                                                href="/admin/roles?search={{ $role }}">{{ $role }}</a><br>
+                                                        @endforeach
 
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input type="checkbox"
-                                                        data-url="{{ route('admin.users.status', $item->id) }}"
-                                                        data-id="{{ $item->id }}" class="form-check-input changeStatus"
-                                                        id="exampleCheck{{ $item->id }}"
-                                                        @if ($item->enable) checked @endif>
-                                                    <label class="form-check-label" for="exampleCheck{{ $item->id }}">
-                                                        {{ __('enable') }} </label>
-                                                </div>
-                                            </td>
-                                            <td>{{ (new Shamsi())->jdate($item->created_at, true) }}</td>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-check">
+                                                            <input type="checkbox"
+                                                                data-url="{{ route('admin.users.status', $item->id) }}"
+                                                                data-id="{{ $item->id }}"
+                                                                class="form-check-input changeStatus"
+                                                                id="exampleCheck{{ $item->id }}"
+                                                                @if ($item->enable) checked @endif>
+                                                            <label class="form-check-label"
+                                                                for="exampleCheck{{ $item->id }}">
+                                                                {{ __('enable') }} </label>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ (new Shamsi())->jdate($item->created_at, true) }}</td>
 
-                                            <td class="project-actions">
-                                                <a class="btn btn-info btn-sm"
-                                                    href="{{ route('admin.users.edit', $item->id) }}">
-                                                    <i class="fas fa-pen"></i>
-                                                    {{ __('Edit') }}
-                                                </a>
-                                               
-                                                <form action="{{ route('admin.users.destroy', $item->id) }}"
-                                                    class="d-inline-block" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" onclick="swalConfirmDelete(this)"
-                                                        class="btn btn-danger btn-sm">
-                                                        <i class="fas fa-trash"></i>
-                                                        {{ __('admin.delete') }}
-                                                    </button>
-                                                </form>
+                                                    <td class="project-actions">
+                                                        <a class="btn btn-info btn-sm"
+                                                            href="{{ route('admin.users.edit', $item->id) }}">
+                                                            <i class="fas fa-pen"></i>
+                                                            {{ __('Edit') }}
+                                                        </a>
+
+                                                        <form action="{{ route('admin.users.destroy', $item->id) }}"
+                                                            class="d-inline-block" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" onclick="swalConfirmDelete(this)"
+                                                                class="btn btn-danger btn-sm">
+                                                                <i class="fas fa-trash"></i>
+                                                                {{ __('admin.delete') }}
+                                                            </button>
+                                                        </form>
 
 
-                                            </td>
+                                                    </td>
 
-                                        </tr>
-                                    @elseif (auth()->user()->hasRole('supervisor'))
-                                        @if ($item->supervisor()->first()?->id == auth()->user()->id)
+                                                </tr>
+                                            @endif
+                                        @else
                                             <tr>
-
                                                 <td>
                                                     @if ($item->hasRole('supervisor'))
                                                         👨‍💼
@@ -183,7 +190,76 @@
                                                             @if ($item->enable) checked @endif>
                                                         <label class="form-check-label"
                                                             for="exampleCheck{{ $item->id }}">
-                                                            enable</label>
+                                                            {{ __('enable') }} </label>
+                                                    </div>
+                                                </td>
+                                                <td>{{ (new Shamsi())->jdate($item->created_at, true) }}</td>
+
+                                                <td class="project-actions">
+                                                    <a class="btn btn-info btn-sm"
+                                                        href="{{ route('admin.users.edit', $item->id) }}">
+                                                        <i class="fas fa-pen"></i>
+                                                        {{ __('Edit') }}
+                                                    </a>
+
+                                                    <form action="{{ route('admin.users.destroy', $item->id) }}"
+                                                        class="d-inline-block" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" onclick="swalConfirmDelete(this)"
+                                                            class="btn btn-danger btn-sm">
+                                                            <i class="fas fa-trash"></i>
+                                                            {{ __('admin.delete') }}
+                                                        </button>
+                                                    </form>
+
+
+                                                </td>
+
+                                            </tr>
+                                        
+                                        @endif
+                                    @elseif (auth()->user()->hasRole('supervisor'))
+                                        @if ($item->supervisor()->first()?->id == auth()->user()->id)
+                                            <tr>
+
+                                                <td>
+                                                    @if ($item->hasRole('supervisor'))
+                                                        👨‍💼
+                                                        @endif @if ($item->hasRole('admin'))
+                                                            ⭐
+                                                        @endif{{ $item->id }}
+                                                </td>
+                                                <td>{{ $item->system_id }}</td>
+
+                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->username }}</td>
+                                                <td>{{ $item->email }}</td>
+                                                <td>{{ $item->phone }}</td>
+                                                <td>
+                                                    <div class="form-check">
+                                                        <input type="checkbox"
+                                                            data-url="{{ route('admin.users.remote', $item->id) }}"
+                                                            data-id="{{ $item->id }}"
+                                                            class="form-check-input changeStatus2"
+                                                            id="exampleCheck1{{ $item->id }}"
+                                                            @if ($item->remotable) checked @endif>
+                                                        <label class="form-check-label"
+                                                            for="exampleCheck1{{ $item->id }}">
+                                                            بله</label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check">
+                                                        <input type="checkbox"
+                                                            data-url="{{ route('admin.users.status', $item->id) }}"
+                                                            data-id="{{ $item->id }}"
+                                                            class="form-check-input changeStatus"
+                                                            id="exampleCheck{{ $item->id }}"
+                                                            @if ($item->enable) checked @endif>
+                                                        <label class="form-check-label"
+                                                            for="exampleCheck{{ $item->id }}">
+                                                            {{ __('admin.enable') }}</label>
                                                     </div>
                                                 </td>
                                                 <td>{{ (new Shamsi())->jdate($item->created_at, true) }}</td>
@@ -195,10 +271,10 @@
                                                         {{ __('Edit') }}
                                                     </a>
                                                     <a class="btn btn-warning btn-sm"
-                                                    href="{{ route('admin.users.stats', $item->id) }}">
-                                                    <i class="fas fa-bars"></i>
-                                                    {{ __('Stats') }}
-                                                </a>
+                                                        href="{{ route('admin.users.stats', $item->id) }}">
+                                                        <i class="fas fa-bars"></i>
+                                                        {{ __('Stats') }}
+                                                    </a>
                                                     <form action="{{ route('admin.users.destroy', $item->id) }}"
                                                         class="d-inline-block" method="POST">
                                                         @csrf
@@ -268,7 +344,38 @@
                     success: function(res) {
                         Toast.fire({
                             icon: 'success',
-                            'title': 'Record status successfully changed'
+                            'title': "{{ __('Record status successfully changed') }}"
+                        })
+                    }
+                });
+            });
+            $('.changeStatus2').on('change', function() {
+                id = $(this).attr('data-id');
+
+                if ($(this).is(':checked')) {
+                    enable = 1;
+                } else {
+                    enable = 0;
+                }
+
+                $.ajax({
+                    url: $(this).attr('data-url'),
+                    type: 'post',
+                    data: {
+                        'remotable': enable,
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    dataType: 'json',
+                    beforeSend: function() {
+                        // $("#beforeAfterLoading").addClass("spinner-border");
+                    },
+                    complete: function() {
+                        // $("#beforeAfterLoading").removeClass("spinner-border");
+                    },
+                    success: function(res) {
+                        Toast.fire({
+                            icon: 'success',
+                            'title': "{{ __('Record status successfully changed') }}"
                         })
                     }
                 });

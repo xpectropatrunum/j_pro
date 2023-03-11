@@ -48,13 +48,40 @@ class UserController extends Controller
         if ($request->limit) {
             $limit = $request->limit;
         }
+        $super_id = $request->supervisor;
+        $items = $query->paginate($limit);
+
+
+
+        return view('admin.pages.users.index', compact('items', 'search', 'limit', 'super_id'));
+    }
+    public function supervisors(Request $request)
+    {
+        $search = "";
+        $limit = 10;
+
+        $query = User::latest();
+
+        if ($request->search) {
+            $searching_for = $request->search;
+            $search = $request->search;
+            $query->where("id", $search)
+                ->orWhere("name", "like", "%$search%")
+                ->orWhere("username", "like", "%$search%")
+                ->orWhere("email", "like", "%$search%");
+        }
+
+        if ($request->limit) {
+            $limit = $request->limit;
+        }
 
         $items = $query->paginate($limit);
 
 
 
-        return view('admin.pages.users.index', compact('items', 'search', 'limit'));
+        return view('admin.pages.users.supervisors', compact('items', 'search', 'limit'));
     }
+    
     function statsExcel(User $user)
     {
 
@@ -128,12 +155,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->merge([
-            "email" => strtolower($request->email),
-        ]);
+        if(auth()->user()->hasRole("supervisor") && auth()->user()->max_workers){
+            $users = User::whereHas("supervisor", function($query){
+                $query->id = auth()->user()->id;
+            })->count();
+        
+            if($users >= auth()->user()->max_workers){
+                return redirect()->back()->withError("Exceeds workers");
+
+            }
+           
+        }
+       
         $request->validate([
             "email" => "required|email|unique:users,email",
-            "phone" => "required|unique:users,phone",
+            "phone" => "nullable|unique:users,phone",
             "username" => "required|unique:users,username",
             "name" => "required",
             "password" => "required",
@@ -174,7 +210,7 @@ class UserController extends Controller
         ]);
         $request->validate([
             "email" => "required|email|unique:users,email," . $user->id,
-            "phone" => "required|unique:users,phone," . $user->id,
+            "phone" => "nullable|unique:users,phone," . $user->id,
             "username" => "required|unique:users,username," . $user->id,
             "name" => "required",
             "system_id" => "required|unique:users,system_id," . $user->id,
@@ -253,6 +289,14 @@ class UserController extends Controller
     {
         $request->validate([
             "enable" => "required"
+        ]);
+        $user->update($request->all());
+        return 1;
+    }
+    function changeStatus2(Request $request, User $user)
+    {
+        $request->validate([
+            "remotable" => "required"
         ]);
         $user->update($request->all());
         return 1;

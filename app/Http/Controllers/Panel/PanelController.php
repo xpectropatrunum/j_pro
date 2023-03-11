@@ -86,11 +86,11 @@ class PanelController extends Controller
                 return redirect()->back()->withError("شما از تایم دستی در این ماه استفاده کردید");
             }
         }
-        $project = auth()->user()->supervisor()->first()->projects()->findOrFail($request->project);
+        $project = auth()->user()->supervisor()->first()->projects()->where("status", 0)->findOrFail($request->project);
 
         if (!auth()->user()->remotable) {
             $match = 0;
-            foreach (auth()->user()->supervisor()->first()->projects as $item) {
+            foreach (auth()->user()->supervisor()->first()->projects()->where("status", 0)->get()  as $item) {
                 $distance = ($this->haversineGreatCircleDistance($item->x, $item->y, $request->lat, $request->lng));
 
 
@@ -133,6 +133,16 @@ class PanelController extends Controller
             "note.required" => "گزارش کار ضروری می باشد",
         ]);
 
+        if (!auth()->user()->remotable) {
+            $request->validate([
+                "lat" => "required",
+                "lng" => "required",
+            ], [
+                "lat.required" => "موقعیت مکانی ارسال نشده است",
+                "lng.required" => "موقعیت مکانی ارسال نشده است",
+            ]);
+        }
+
         if ($request->fee && !is_numeric($request->fee)) {
             return redirect()->back()->withError("هزینه ایاب ذهاب معتبر نمی باشد");
         }
@@ -142,11 +152,21 @@ class PanelController extends Controller
         $log = auth()->user()->logs()->where(["date" => date("Y-m-d")])->latest()->firstOrFail();
         $project = $log->project;
 
-        if (!auth()->user()->remotable) {
-            $distance = ($this->haversineGreatCircleDistance($project->x, $project->y, $request->lat, $request->lng));
 
-            if ($distance > $project->area) {
-                return redirect()->back()->withError("شما در محدوده مجاز پروژه قرار ندارید");
+        if (!auth()->user()->remotable) {
+            $match = 0;
+            foreach (auth()->user()->supervisor()->first()->projects()->where("status", 0)->get()  as $item) {
+                $distance = ($this->haversineGreatCircleDistance($item->x, $item->y, $request->lat, $request->lng));
+
+
+
+                if ($distance <= $item->area) {
+                    $match = 1;
+                    break;
+                }
+            }
+            if ($match == 0) {
+                return redirect()->back()->withError("شما در محدوده مجاز هیچ یک از پروژه ها قرار ندارید");
             }
         }
 

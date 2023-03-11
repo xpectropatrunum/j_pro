@@ -21,7 +21,7 @@
             <input type="hidden" name="lng">
             <select name="project" dir="rtl" class="form-select" aria-label="Default select example">
                 <option value="0">انتخاب پروژه</option>
-               @foreach (auth()->user()->supervisor()->first()?->projects ?? [] as $item)
+               @foreach (auth()->user()->supervisor()->first()?->projects()->where("status", 0)->get() ?? [] as $item)
                 <option value="{{$item->id}}">{{$item->name}}</option>
                    
                @endforeach

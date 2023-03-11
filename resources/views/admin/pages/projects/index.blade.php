@@ -59,9 +59,8 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{ __('Name') }}</th>
                                     <th>{{ __('Company') }}</th>
-                                    <th>{{ __('Supervisor') }}</th>
+                                    <th>{{ __('Project') }}</th>
                                     <th>{{ __('Location') }}</th>
                                     <th>{{ __('Status') }}</th>
                                     <th>{{ __('admin.created_date') }}</th>
@@ -72,11 +71,10 @@
                                 @foreach ($items as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->name }}</td>
                                         <td>{{ $item->company_name }}</td>
-                                        <td><a
-                                                href="{{ route('admin.users.index', ['search' => $item->supervisor->id]) }}">{{ $item->supervisor->name }}</a>
-                                        </td>
+                                        <td>{{ $item->name }}</td>
+
+                                        
                                         <td>{{ "x:$item->x y:$item->y" }}</td>
                                         <td>
                                             @if ($item->status == 1)

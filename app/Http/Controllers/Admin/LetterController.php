@@ -39,10 +39,14 @@ class LetterController extends Controller
             $query =  $query
                 ->join('users', 'letters.user_id', '=', 'users.id')
                 ->join('supervisor_user', 'users.id', '=', 'supervisor_user.user_id')
-                ->where('supervisor_user.supervisor_id', '=', auth()->user()->id);
-        }
+                ->where('supervisor_user.supervisor_id', '=', auth()->user()->id)
+                ->select(
+                    '*',
+                    'letters.id as letter_id',
+                );
 
 
+            }
         if ($date = $request->date) {
             $query->where("date", $request->date);
         }
@@ -95,12 +99,17 @@ class LetterController extends Controller
         if ($user = $request->user) {
             $query->where("letters.user_id", $request->user);
         }
+        if ($title = $request->title) {
+            $query->whereHas("letter_subject", function($query) use($title ){
+                 $query->where("title", "LIKE", "%$title%");
+            });
+        }
+        if ($number = $request->number) {
+            $query->where("letters.number", $request->number);
+        }
         if ($company = $request->company) {
             $query->where("project_id", $request->company);
 
-        }
-        if ($request->limit) {
-            $limit = $request->limit;
         }
 
         $items = $query->orderBy("letters.created_at");

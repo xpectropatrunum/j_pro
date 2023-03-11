@@ -7,6 +7,7 @@ use App\Http\Resources\DoctorResource;
 use App\Models\Doctor;
 use App\Models\DoctorImage;
 use App\Models\DoctorSpecialty;
+use App\Models\Log;
 use App\Models\TvTemp;
 use Illuminate\Http\Request;
 
@@ -19,8 +20,14 @@ class DashboardController extends Controller
      */
     public function index()
     {
-       // auth()->user()->assignRole([$role->id]);
-        return view("admin.dashboard");
+       if(auth()->user()->hasRole("supervisor")){
+        $items = Log::with("leave")->latest("logs.created_at")->get();
+
+        return view("admin.dashboard", compact("items"));
+
+       }
+       return view("admin.dashboard");
+
     }
 
     /**

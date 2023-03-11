@@ -91,13 +91,13 @@
                                     <th>{{ __('Created Date') }}</th>
                                     <th>{{ __('Worker') }}</th>
                                     {{--  <th>{{ __('admin.created_date') }}</th>  --}}
-                                    {{--  <th>{{ __('admin.actions') }}</th>  --}}
+                                    <th>{{ __('admin.actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($items as $key => $item)
+                                @foreach ($items as  $item)
                                     <tr>
-                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $item->letter_id }}</td>
                                         <td>{{ $item->letter_subject?->title ?? '--' }}</td>
                                         <td>{{ $item->number }}</td>
                                         <td>{{ $item->project?->company_name }}</td>
@@ -108,10 +108,10 @@
 
 
                                         {{--  <td>{{ (new Shamsi())->jdate($item->created_at) }}</td>  --}}
-                                        {{--  <td class="project-actions">
+                                        <td class="project-actions">
 
 
-                                            <form action="{{ route('admin.letters.destroy', $item->id) }}"
+                                            <form action="{{ route('admin.letters.destroy', $item->letter_id) }}"
                                                 class="d-inline-block" method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -121,7 +121,7 @@
                                                     {{ __('admin.delete') }}
                                                 </button>
                                             </form>
-                                        </td>  --}}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

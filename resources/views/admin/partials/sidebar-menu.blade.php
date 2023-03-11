@@ -18,8 +18,12 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            @role("supervisor") {{ __('Workers') }} @endrole
-                            @role("admin") {{ __('Users') }} @endrole
+                            @role('supervisor')
+                                {{ __('Workers') }}
+                            @endrole
+                            @role('admin')
+                                {{ __('Users') }}
+                            @endrole
 
                             <i class="right fas fa-angle-left"></i>
                         </p>
@@ -30,12 +34,27 @@
                             <a href="{{ route('admin.users.index') }}"
                                 class="nav-link {{ request()->routeIs(['admin.users.index']) ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>{{ __('admin.all') }}   @role("supervisor") {{ __('Workers') }} @endrole
-                                    @role("admin") {{ __('Users') }} @endrole
+                                <p>{{ __('admin.all') }} @role('supervisor')
+                                        {{ __('Workers') }}
+                                    @endrole
+                                    @role('admin')
+                                        {{ __('Users') }}
+                                    @endrole
                                 </p>
                             </a>
                         </li>
+                        @role('admin')
+                            <li class="nav-item">
+                                <a href="{{ route('admin.users.supervisors') }}"
+                                    class="nav-link {{ request()->routeIs(['admin.users.supervisors']) ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>{{ __('admin.all') }}
+                                        {{ __('Supervisors') }}
 
+                                    </p>
+                                </a>
+                            </li>
+                        @endrole
                         <li class="nav-item">
                             <a href="{{ route('admin.users.create') }}"
                                 class="nav-link {{ request()->routeIs(['admin.users.create']) ? 'active' : '' }}">
@@ -228,34 +247,34 @@
 
                     </ul>
                 </li>
-                @role("supervisor")
-                <li class="nav-item has-treeview {{ request()->routeIs(['admin.letters.*']) ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa-envelope fas"></i>
-                        <p>
-                            {{ __('Letters') }}
+                @role('supervisor')
+                    <li class="nav-item has-treeview {{ request()->routeIs(['admin.letters.*']) ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa-envelope fas"></i>
+                            <p>
+                                {{ __('Letters') }}
 
 
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul
-                        class="nav nav-treeview {{ request()->routeIs(['admin.letters.*']) ? 'd-block' : 'display-none' }}">
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul
+                            class="nav nav-treeview {{ request()->routeIs(['admin.letters.*']) ? 'd-block' : 'display-none' }}">
 
-                        <li class="nav-item">
-                            <a href="{{ route('admin.letters.index') }}"
-                                class="nav-link {{ request()->routeIs(['admin.letters.index']) ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>{{ __('admin.all') }} {{ __('Letters') }}
-                                </p>
-                            </a>
-                        </li>
-
-
+                            <li class="nav-item">
+                                <a href="{{ route('admin.letters.index') }}"
+                                    class="nav-link {{ request()->routeIs(['admin.letters.index']) ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>{{ __('admin.all') }} {{ __('Letters') }}
+                                    </p>
+                                </a>
+                            </li>
 
 
-                    </ul>
-                </li>
+
+
+                        </ul>
+                    </li>
                 @endrole
 
                 <li class="nav-item has-treeview {{ request()->routeIs(['admin.offs.*']) ? 'menu-open' : '' }}">
@@ -283,19 +302,19 @@
                     </ul>
                 </li>
             @endrole
-            @role("supervisor")
-            <li class="nav-item has-treeview {{ request()->routeIs(['admin.settings.*']) ? 'menu-open' : '' }}">
-                <a href="{{route("admin.settings.index")}}" class="nav-link">
-                    <i class="nav-icon fa-cogs fas"></i>
-                    <p>
-                        {{ __('Settings') }}
+            @role('supervisor')
+                <li class="nav-item has-treeview {{ request()->routeIs(['admin.settings.*']) ? 'menu-open' : '' }}">
+                    <a href="{{ route('admin.settings.index') }}" class="nav-link">
+                        <i class="nav-icon fa-cogs fas"></i>
+                        <p>
+                            {{ __('Settings') }}
 
 
-                       
-                    </p>
-                </a>
-              
-            </li>
+
+                        </p>
+                    </a>
+
+                </li>
             @endrole
 
 

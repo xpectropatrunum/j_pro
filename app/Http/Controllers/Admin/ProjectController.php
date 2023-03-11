@@ -43,7 +43,8 @@ class ProjectController extends Controller
             $searching_for = $request->search;
             $search = $request->search;
             $query->where("name", "LIKE", "%$search%")
-            ->$query->orWhere("id", $search);
+            ->orWhere("company_name", "LIKE", "%$search%")
+            ->orWhere("id", $search);
         }
 
         if ($request->limit) {

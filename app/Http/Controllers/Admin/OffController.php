@@ -130,9 +130,9 @@ class OffController extends Controller
     {
         return view('admin.pages.letter_subjects.edit', compact('letterSubject'));
     }
-    public function destroy(Letter $letter)
+    public function destroy(Off $off)
     {
-        if ($letter->delete()) {
+        if ($off->delete()) {
             return redirect()->back()->withSuccess("The item successfully deleted");
         }
         return redirect()->back()->withError("Something went wrong");

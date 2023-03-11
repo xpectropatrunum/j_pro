@@ -79,10 +79,10 @@ class LoginController extends Controller
             "enable" => 1
         ]);
 
-        if (Auth::attempt($request->only($fieldType, 'password', 'enable'))) {
+        if ($user = Auth::attempt($request->only($fieldType, 'password', 'enable'))) {
             return redirect()
                 ->route('panel.main')
-                ->withSuccess("با موفقیت وارد شدید");
+                ->withSuccess(auth()->user()->name ."، "." با موفقیت وارد شدید");
         }
 
 
@@ -90,9 +90,10 @@ class LoginController extends Controller
     }
     public function logout(Request $request)
     {
+        $user = auth()->user();
         $this->guard()->logout();
         $request->session()->invalidate();
-        return redirect()->route('login')->with('success', "با موفقیت خارج شدید");
+        return redirect()->route('login')->with('success',$user->name ."، "."با موفقیت خارج شدید");
     }
     public function uploadImage(Request $request)
     {

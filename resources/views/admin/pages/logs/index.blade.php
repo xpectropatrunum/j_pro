@@ -58,9 +58,12 @@
                                 <tr>
                                     <th>#</th>
                                     <th>{{ __('User') }}</th>
+                                    <th>{{ __('Company') }}</th>
                                     <th>{{ __('Project') }}</th>
                                     <th>{{ __('Login') }}</th>
                                     <th>{{ __('Logout') }}</th>
+                                    <th>{{ __('Transfer fee') }}</th>
+                                    <th>{{ __('Note') }}</th>
                                     {{--  <th>{{ __('admin.actions') }}</th>  --}}
                                 </tr>
                             </thead>
@@ -73,7 +76,9 @@
                                             <td><a
                                                     href="{{ route('admin.users.index', ['search' => $item->user_id]) }}">{{ $item->user->name }}</a>
                                             </td>
-
+                                            <td><a
+                                                href="{{ route('admin.projects.index', ['search' => $item->project->id]) }}">{{ $item->project->company_name }}</a>
+                                        </td>
                                             <td><a
                                                     href="{{ route('admin.projects.index', ['search' => $item->project->id]) }}">{{ $item->project->name }}</a>
                                             </td>
@@ -81,7 +86,8 @@
                                             <td>{{ (new Shamsi())->jdate($item->date . ' ' . $item->time) }} </td>
                                             <td>{{ $item->leave_time ? (new Shamsi())->jdate($item->leave_time):"--" }}
                                             </td>
-
+                                            <td>{{ $item->leave ? number_format($item->leave->fee ?: 0) :"--"}}</td>
+                                            <td>{{ $item->leave ? $item->leave->note:"--" }}</td>
 
                                             {{--  <td class="project-actions">
                                       

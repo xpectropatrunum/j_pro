@@ -27,6 +27,7 @@ class User extends Authenticatable
         'password',
         'system_id',
         'enable',
+        "max_workers"
     ];
 
     /**
@@ -78,6 +79,7 @@ class User extends Authenticatable
     function supervisor(){
         return $this->belongsToMany(User::class, SupervisorUser::class, "user_id", "supervisor_id");
     }
+  
     function setting(){
         return $this->hasOne(Setting::class);
     }
