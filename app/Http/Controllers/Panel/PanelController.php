@@ -118,7 +118,7 @@ class PanelController extends Controller
         );
 
         if ($log) {
-            return redirect()->route("panel.work")->withSuccess("ورود موفقیت آمیز به شرکت " . $project->name)->with("icon", "login");
+            return redirect()->route("panel.work")->withSuccess("ورود موفقیت آمیز به شرکت " . $project->company_name)->with("icon", "login");
         }
         return redirect()->back()->withError("خطایی رخ داده بعدا تلاش کنید");
     }
