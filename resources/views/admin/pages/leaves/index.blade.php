@@ -76,10 +76,10 @@
                                                     href="{{ route('admin.users.index', ['search' => $item->log->user_id]) }}">{{ $item->log->user->name }}</a>
                                             </td>
                                             <td><a
-                                                href="{{ route('admin.projects.index', ['search' => $item->log->project->id]) }}">{{ $item->log->project->company_name }}</a>
+                                                href="{{ route('admin.projects.index', ['search' => $item->log->project?->id]) }}">{{ $item->log->project?->company_name }}</a>
                                         </td>
                                             <td><a
-                                                    href="{{ route('admin.projects.index', ['search' => $item->log->project->id]) }}">{{ $item->log->project->name }}</a>
+                                                    href="{{ route('admin.projects.index', ['search' => $item->log->project?->id]) }}">{{ $item->log->project?->name }}</a>
                                             </td>
 
                                             <td>{{ (new Shamsi())->jdate($item->log->date . ' ' . $item->log->time) }}</td>

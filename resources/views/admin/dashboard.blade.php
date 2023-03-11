@@ -47,10 +47,10 @@
                                                 href="{{ route('admin.users.index', ['search' => $item->user_id]) }}">{{ $item->user->name }}</a>
                                         </td>
                                         <td><a
-                                                href="{{ route('admin.projects.index', ['search' => $item->project->id]) }}">{{ $item->project->company_name }}</a>
+                                                href="{{ route('admin.projects.index', ['search' => $item->project?->id]) }}">{{ $item->project?->company_name }}</a>
                                         </td>
                                         <td><a
-                                                href="{{ route('admin.projects.index', ['search' => $item->project->id]) }}">{{ $item->project->name }}</a>
+                                                href="{{ route('admin.projects.index', ['search' => $item->project?->id]) }}">{{ $item->project?->name }}</a>
                                         </td>
 
                                         <td>{{ (new Shamsi())->jdate($item->date . ' ' . $item->time) }} </td>
