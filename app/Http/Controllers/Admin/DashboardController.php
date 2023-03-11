@@ -21,7 +21,7 @@ class DashboardController extends Controller
     public function index()
     {
        if(auth()->user()->hasRole("supervisor")){
-        $items = Log::with("leave")->latest("logs.created_at")->get();
+        $items = Log::with("leave")->where("date", date("Y-m-d"))->latest("logs.created_at")->get();
 
         return view("admin.dashboard", compact("items"));
 
