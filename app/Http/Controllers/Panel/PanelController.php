@@ -7,6 +7,7 @@ use App\Helpers\Shamsi;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Log;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -97,6 +98,7 @@ class PanelController extends Controller
 
                 if ($distance <= $item->area) {
                     $match = 1;
+                    $project = $item;
                     break;
                 }
             }
@@ -107,6 +109,10 @@ class PanelController extends Controller
 
         $have_log = auth()->user()->logs()->where(["date" => date("Y-m-d")])->latest()->first();
         if ($have_log) {
+            if (time() - strtotime($have_log->created_at) < 60) {
+                \Illuminate\Support\Facades\Log::emergency("twice login");
+                return redirect()->back();
+            }
             //  return redirect()->back()->withError("یک مورد ورود ثبت شده");
         }
         $log = auth()->user()->logs()->create(
