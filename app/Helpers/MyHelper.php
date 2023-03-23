@@ -28,7 +28,7 @@ class MyHelper
         $month = (new Shamsi)->jNumber()[1];
         $year = (new Shamsi)->jNumber()[0];
         $out = [];
-        foreach (range(1, 30) as $day) {
+        foreach (range(1, 29) as $day) {
             $out[] = (object)[
                 "date" => $year . "/" . $month . "/" . $day,
                 "weekday" => __(date("D", strtotime((new Shamsi)->jalali_to_gregorian($year . "/" . $month . "/" . $day)))),

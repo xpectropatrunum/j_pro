@@ -37,8 +37,8 @@ class Forget extends Mailable
     public function envelope()
     {
         return new Envelope(
-            from: new Address('info@get24.ir', 'Tzol'),
-            subject: 'فراموشی رمزعبور',
+            from: new Address('info@get24.ir', 'GET24'),
+            subject: 'بازیابی رمزعبور',
         );
     }
 

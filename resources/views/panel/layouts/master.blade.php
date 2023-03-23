@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" media="all" />
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-Variable-font-face.css"
         rel="stylesheet" type="text/css" />
-    <title>@yield('title') - تزول</title>
-    <meta name="copyright" content="Tzol" />
+    <title>@yield('title')</title>
+    <meta name="copyright" content="GET24" />
     <meta name="owner" content="Javad Hasanloo" />
     <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
     <script src="{{ asset('assets/js/jquery.js') }}"></script>
