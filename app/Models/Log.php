@@ -40,7 +40,7 @@ class Log extends Model
     {
         if (!$this->leave) {
             $end_time = $this->user->supervisor()->first()->setting?->end_time ?? "21:00";
-            if(strtotime(date("H:i")) >= strtotime(env("MAX_WORKING_HOUR"))){
+            if(strtotime(date("Y-m-d H:i")) >= strtotime($this->date  . " ".env("MAX_WORKING_HOUR"))){
                 if (time() - strtotime($this->date  . " " . $end_time) > 0) {
                     if (strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time) > 0) {
                         return $end_time;
