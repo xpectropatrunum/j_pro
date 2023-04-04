@@ -175,7 +175,7 @@
     <script>
         $(function() {
             $(".search-performance").click(function(){
-                window.location.href = "/admin/users/9/stats?month=" + $("[name=month]").val() + "&year=" + $("[name=year]").val();
+                window.location.href = "stats?month=" + $("[name=month]").val() + "&year=" + $("[name=year]").val();
             })
             $('.changeStatus').on('change', function() {
                 id = $(this).attr('data-id');
