@@ -23,12 +23,52 @@ class MyHelper
 
         return $englishNumbersOnly;
     }
-    static function dateOfMonths()
+    static function dayCount($month)
     {
-        $month = (new Shamsi)->jNumber()[1];
-        $year = (new Shamsi)->jNumber()[0];
+        $months = [
+            31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29
+        ];
+        return $months[$month - 1];
+    }
+    static function months()
+    {
+        $months = [
+           "فروردین",
+           "اردیبهشت",
+           "خرداد",
+           "تیر",
+           "مرداد",
+           "شهریور",
+           "مهر",
+           "آبان",
+           "آذر",
+           "دی",
+           "بهمن",
+           "اسفند",
+        ];
+        return $months;
+    }
+    static function years()
+    {
+        $years = [
+           "1401",
+           "1402",
+           "1403",
+           "1404",
+          
+        ];
+        return $years;
+    }
+    static function dateOfMonths($year = null, $month = null)
+    {
+        if (!$month) {
+            $month = (new Shamsi)->jNumber()[1];
+        }
+        if (!$year) {
+            $year = (new Shamsi)->jNumber()[0];
+        }
         $out = [];
-        foreach (range(1, 29) as $day) {
+        foreach (range(1, self::dayCount($month)) as $day) {
             $out[] = (object)[
                 "date" => $year . "/" . $month . "/" . $day,
                 "weekday" => __(date("D", strtotime((new Shamsi)->jalali_to_gregorian($year . "/" . $month . "/" . $day)))),

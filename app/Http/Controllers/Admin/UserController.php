@@ -82,11 +82,9 @@ class UserController extends Controller
         return view('admin.pages.users.supervisors', compact('items', 'search', 'limit'));
     }
     
-    function statsExcel(User $user)
+    function statsExcel(User $user, Request $request)
     {
-
-
-        $dates = MyHelper::dateOfMonths();
+        $dates = MyHelper::dateOfMonths($request->year, $request->month);
 
         $times = 0;
         $fees = 0;
@@ -125,9 +123,9 @@ class UserController extends Controller
         )->get();
         return view("admin.pages.users.create", compact("supervisors"));
     }
-    public function getStats(User $user)
+    public function getStats(User $user, Request $request)
     {
-        $dates = MyHelper::dateOfMonths();
+        $dates = MyHelper::dateOfMonths($request->year, $request->month);
 
         $times = 0;
         $fees = 0;

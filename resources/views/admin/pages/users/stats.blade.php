@@ -28,9 +28,36 @@
                 <div class="card-header d-flex align-items-center px-3">
                     <h3 class="card-title">کارمند {{ $user->name }}</h3>
                 </div>
+
                 <div class="card-body p-3">
-                    مجموع ساعات کاری:    {{ gmdate('d', $times) > 1 ? gmdate('d', $times)." روز":""}} {{ gmdate('H:i', $times) }}
-                    <a href="{{ route('admin.users.stats.excel', $user->id) }}"><button type="button"
+
+                    <div class="row">
+                        <div class="col-md-2 col-12 form-group ">
+                            <label for="year">سال</label>
+                            <select name="year" class="form-control">
+                                @foreach (MyHelper::years() as $key => $item)
+                                    <option  @if((request()->year?? (new Shamsi)->jNumber()[0] ) == $item ) selected @endif value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-12 form-group ">
+                            <label for="month">ماه</label>
+                            <select name="month" class="form-control">
+                                @foreach (MyHelper::months() as $key => $item)
+                                    <option @if((request()->month?? (new Shamsi)->jNumber()[1] ) == $key + 1) selected @endif value="{{ $key + 1 }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                      
+
+                    </div>
+                    <div class="mb-4">
+                        <a href="javascript:{}" class="search-performance"><button type="button"
+                            class="btn btn-outline-info">جستجو</button></a>
+                    </div>
+                    مجموع ساعات کاری: {{ gmdate('d', $times) > 1 ? gmdate('d', $times) . ' روز' : '' }}
+                    {{ gmdate('H:i', $times) }}
+                    <a href="{{ route('admin.users.stats.excel', ["user" => $user->id, "year" => request()->year, "month" => request()->month]) }}"><button type="button"
                             class="btn btn-primary">{{ __('Download Excel') }}</button></a>
 
                     <div class="table-responsive mt-2">
@@ -95,7 +122,7 @@
                                         </td>
                                         <td>
                                             @if ($logs->first())
-                                                {{ $logs->first()->leave_time }}
+                                                {{ explode(" ", $logs->first()->leave_time)[1] }}
                                             @elseif (!$leaves->first())
                                                 --
                                             @endif
@@ -108,7 +135,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            {{ $logs->first()?->leave  ? ($logs->first()->leave->fee > 0 ? number_format($logs->first()->leave->fee ): "--") : "--"}}
+                                            {{ $logs->first()?->leave ? ($logs->first()->leave->fee > 0 ? number_format($logs->first()->leave->fee) : '--') : '--' }}
 
                                         </td>
                                         <td>
@@ -147,6 +174,9 @@
 @push('admin_js')
     <script>
         $(function() {
+            $(".search-performance").click(function(){
+                window.location.href = "/admin/users/9/stats?month=" + $("[name=month]").val() + "&year=" + $("[name=year]").val();
+            })
             $('.changeStatus').on('change', function() {
                 id = $(this).attr('data-id');
                 key = $(this).attr('data-key');

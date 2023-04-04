@@ -64,7 +64,7 @@
                                         </td>
                                         <td>
                                             @if ($logs->first())
-                                                {{ $logs->first()->leave_time }}
+                                                {{ explode(" ", $logs->first()->leave_time)[1] }}
                                             @elseif (!$leaves->first())
                                                 --
                                             @endif
