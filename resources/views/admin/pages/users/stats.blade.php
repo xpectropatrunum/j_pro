@@ -122,7 +122,7 @@
                                         </td>
                                         <td>
                                             @if ($logs->first())
-                                                {{ explode(" ", $logs->first()->leave_time)[1] }}
+                                                {{ explode(" ", $logs->first()->leave_time)[1] ?? $logs->first()->leave_time }}
                                             @elseif (!$leaves->first())
                                                 --
                                             @endif
