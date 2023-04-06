@@ -31,5 +31,8 @@ class Off extends Model
     {
         return date("H:i", $this->atrributes["time"]);
     }
- 
+    function getCreatedAtAttribute()
+    {
+        return date("H:i", $this->atrributes["created_at"]);
+    }
 }

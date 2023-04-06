@@ -22,6 +22,7 @@ class Leave extends Model
         'log_id',
         'note',
         'fee',
+        "created_at"
     ];
   
     function log(){
