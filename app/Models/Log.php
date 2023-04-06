@@ -46,7 +46,8 @@ class Log extends Model
                         $this->leave()->create([
                             "note" => "",
                             "fee" => "",
-                            "created_at" => $this->date  . " ". $end_time
+                            "date" => $this->date  ,
+                            "time" => $end_time
                         ]);
                         return $this->date  . " ". $end_time;
                     }
