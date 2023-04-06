@@ -83,7 +83,7 @@
                                             </td>
 
                                             <td>{{ (new Shamsi())->jdate($item->log->date . ' ' . $item->log->time) }}</td>
-                                            <td>{{ $item->log->leave_time ? new Shamsi()->jdate($item->log->leave_time):"--"  }}
+                                            <td>{{ $item->log->leave_time ? (new Shamsi())->jdate($item->log->leave_time):"--"  }}
                                             </td>
 
                                             <td>{{ number_format($item->fee ?: 0) }}</td>
