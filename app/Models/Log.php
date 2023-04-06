@@ -88,6 +88,8 @@ class Log extends Model
 
             return 0;
         }
-        return abs(strtotime($this->leave->created_at) - strtotime($this->date . " " . $this->time));
+        $leave_date =  $this->leave->time ? $this->date . " " . $this->leave->time  : $this->date . " " . date("H:i",strtotime(explode(" ", $this->leave->created_at)[1])) ;
+
+        return abs(strtotime( $leave_date) - strtotime($this->date . " " . $this->time));
     }
 }
