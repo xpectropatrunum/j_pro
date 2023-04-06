@@ -43,6 +43,10 @@ class Log extends Model
             if(strtotime(date("Y-m-d H:i")) >= strtotime($this->date  . " ".env("MAX_WORKING_HOUR"))){
                 if (time() - strtotime($this->date  . " " . $end_time) > 0) {
                     if (strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time) > 0) {
+                        $this->leave()->create([
+                            "note" => "",
+                            "fee" => "",
+                        ]);
                         return $this->date  . " ". $end_time;
                     }
                 }
