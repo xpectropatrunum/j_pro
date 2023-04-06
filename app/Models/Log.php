@@ -56,7 +56,8 @@ class Log extends Model
            
             return null;
         }
-        return $this->leave->time ?? date("H:i",strtotime(explode(" ", $this->leave->created_at)[1])) ;
+      
+        return $this->date . " " . $this->leave->time ?? $this->date . " " . date("H:i",strtotime(explode(" ", $this->leave->created_at)[1])) ;
     }
     function getDurationAttribute()
     {
