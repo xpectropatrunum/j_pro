@@ -89,6 +89,7 @@ class PanelController extends Controller
         }
         $project = auth()->user()->supervisor()->first()->projects()->where("status", 0)->findOrFail($request->project);
 
+        $is_remote = false;
         if (!auth()->user()->remotable) {
             $match = 0;
             foreach (auth()->user()->supervisor()->first()->projects()->where("status", 0)->get()  as $item) {
@@ -104,6 +105,14 @@ class PanelController extends Controller
             }
             if ($match == 0) {
                 return redirect()->back()->withError("شما در محدوده مجاز هیچ یک از پروژه ها قرار ندارید");
+            }
+        } else {
+            $is_remote = true;
+
+            $distance = ($this->haversineGreatCircleDistance($project->x, $project->y, $request->lat, $request->lng));
+
+            if ($distance <= $project->area) {
+                $is_remote = false;
             }
         }
 
@@ -124,7 +133,8 @@ class PanelController extends Controller
         );
 
         if ($log) {
-            return redirect()->route("panel.work")->withSuccess("ورود موفقیت آمیز به شرکت " . $project->company_name)->with("icon", "login");
+            return redirect()->route("panel.work")->withSuccess("ورود موفقیت آمیز به شرکت " . $project->company_name . " " .
+                ($is_remote ? "(دورکار)" : ""))->with("icon", "login");
         }
         return redirect()->back()->withError("خطایی رخ داده بعدا تلاش کنید");
     }
