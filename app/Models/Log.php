@@ -65,7 +65,7 @@ class Log extends Model
 
             return 0;
         }
-        return gmdate("H:i:s", abs(strtotime($this->leave->created_at) - strtotime($this->date . " " . $this->time)));
+        return gmdate("H:i", abs(strtotime($this->leave->created_at) - strtotime($this->date . " " . $this->time)));
     }
     function getDurationInSecondsAttribute()
     {

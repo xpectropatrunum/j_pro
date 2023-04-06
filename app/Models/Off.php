@@ -27,5 +27,9 @@ class Off extends Model
     function user(){
         return $this->belongsTo(User::class);
     }
+    function getTimeAttribute()
+    {
+        return date("H:i", $this->atrributes["time"]);
+    }
  
 }
