@@ -62,7 +62,7 @@ class Log extends Model
     function getDurationAttribute()
     {
         if (!$this->leave) {
-            $end_time = $this->user->supervisor()->first()->setting?->end_time ?? "17:00";
+            $end_time = $this->user->supervisor()->first()->setting?->end_time ?? "21:00";
             if (time() - strtotime($this->date  . " " . $end_time) > 0) {
                 $r = gmdate("H:i:s",  abs(strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time)));
                 if (strtotime($this->date . " " . $end_time) - strtotime($this->date . " " . $this->time) > 0) {
@@ -72,7 +72,8 @@ class Log extends Model
 
             return 0;
         }
-        return gmdate("H:i", abs(strtotime($this->leave->created_at) - strtotime($this->date . " " . $this->time)));
+        $leave_date =  $this->leave->time ? $this->date . " " . $this->leave->time  : $this->date . " " . date("H:i",strtotime(explode(" ", $this->leave->created_at)[1])) ;
+        return gmdate("H:i", abs(strtotime($leave_date) - strtotime($this->date . " " . $this->time)));
     }
     function getDurationInSecondsAttribute()
     {
