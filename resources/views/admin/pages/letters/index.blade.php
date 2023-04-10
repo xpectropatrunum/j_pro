@@ -100,7 +100,7 @@
                                         <td>{{ $item->letter_id }}</td>
                                         <td>{{ $item->letter_subject?->title ?? '--' }}</td>
                                         <td>{{ $item->number }}</td>
-                                        <td>{{ $item->company?->company_name }}</td>
+                                        <td>{{ $item->project?->company_name }}</td>
                                         <td>{{ $item->date }}</td>
                                         <td><a
                                                 href="{{ route('admin.users.index', ['search' => $item->user_id]) }}">{{ $item->user->name }}</a>
