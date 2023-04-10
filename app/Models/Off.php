@@ -28,8 +28,4 @@ class Off extends Model
         return $this->belongsTo(User::class);
     }
 
-    function getCreatedAtAttribute()
-    {
-        return date("H:i", $this->atrributes["created_at"]);
-    }
 }
