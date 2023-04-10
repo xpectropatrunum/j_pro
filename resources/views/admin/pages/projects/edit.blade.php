@@ -59,11 +59,13 @@
                         <div class="form-group col-lg-3">
                             <label>{{ __('Status') }}</label>
 
-                            <select name="status" class="form-control @error('area') is-invalid @enderror">
+                            <select name="status" class="form-control @error('status') is-invalid @enderror">
                                 <option @if ($project->status == 0) selected @endif value="0">
                                     {{ __('Processing') }}</option>
                                 <option @if ($project->status == 1) selected @endif value="1">
                                     {{ __('Done') }}</option>
+                                <option @if ($project->status == 2) selected @endif value="2">
+                                    شروع نشده</option>
                             </select>
                         </div>
                         <div class="form-group col-lg-3">
@@ -188,11 +190,10 @@
                     contextmenu: function() {
                         console.log('Contextmenu callback');
                     },
-                  
+
                 },
             });
-          
+
         });
-     
     </script>
 @endpush

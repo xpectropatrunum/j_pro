@@ -62,6 +62,7 @@
                             <select name="status" class="form-control @error('area') is-invalid @enderror">
                                 <option value="0">{{ __('Processing') }}</option>
                                 <option value="1">{{ __('Done') }}</option>
+                                <option value="2">شروع نشده</option>
                             </select>
                         </div>
 
