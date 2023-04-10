@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Controllers\Admin\Excel\LettersExcel;
 use App\Helpers\ApiHelper;
 use App\Http\Controllers\Admin\Excel\LettersExcel as ExcelLettersExcel;
+use Maatwebsite\Excel\Facades\Excel;
+
 use App\Http\Controllers\Controller;
 use App\Models\DoctorSpecialty;
 use App\Models\Letter;
@@ -14,7 +16,7 @@ use App\Models\Project;
 use App\Models\SupervisorUser;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
+
 
 class LetterController extends Controller
 {

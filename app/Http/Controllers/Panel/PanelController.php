@@ -127,6 +127,7 @@ class PanelController extends Controller
         $log = auth()->user()->logs()->create(
             [
                 "project_id" => $request->project,
+                "company_id" => $project->id,
                 "date" => date("Y-m-d"),
                 "time" => $request->time,
             ]
