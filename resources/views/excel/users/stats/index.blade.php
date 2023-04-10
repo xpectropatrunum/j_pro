@@ -123,7 +123,7 @@
             <td>
             </td>
             <td>
-                {{ gmdate('d', $times) > 1 ? gmdate('d', $times) . ' روز' : '' }} {{ gmdate('H:i', $times) }}
+                {{ gmdate('d', $times) > 1 ? (gmdate('d', $times)-1) . ' روز' : '' }} {{ gmdate('H:i', $times) }}
             </td>
 
         </tr>
