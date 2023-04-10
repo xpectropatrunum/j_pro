@@ -55,8 +55,9 @@
                         <a href="javascript:{}" class="search-performance"><button type="button"
                             class="btn btn-outline-info">جستجو</button></a>
                     </div>
-                    مجموع ساعات کاری: {{ gmdate('d', $times) > 1 ? (gmdate('d', $times) -1) . ' روز' : '' }}
-                    {{ gmdate('H:i', $times) }}
+                    مجموع ساعات کاری:                 {{ MyHelper::standardDuration($times)}}
+
+
                     <a href="{{ route('admin.users.stats.excel', ["user" => $user->id, "year" => request()->year, "month" => request()->month]) }}"><button type="button"
                             class="btn btn-primary">{{ __('Download Excel') }}</button></a>
 
