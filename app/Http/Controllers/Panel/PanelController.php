@@ -215,7 +215,7 @@ class PanelController extends Controller
             [
                 "letter_subject_id" => $request->title,
                 "supervisor_id" => auth()->user()->supervisor()->first()->id,
-                "project_id" => $log->project_id,
+                "project_id" => $log->company_id,
                 "date" => MyHelper::fa_to_en($request->date),
                 "number" => $number,
             ]

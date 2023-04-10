@@ -41,7 +41,7 @@
                                         $companies = [];
                                         $times_ = 0;
                                         foreach ($logs as $log) {
-                                            $companies[] = $log->project?->company_name;
+                                            $companies[] = $log->company?->company_name;
                                             $times_ += $log->duration_in_seconds;
                                         }
                                     @endphp
