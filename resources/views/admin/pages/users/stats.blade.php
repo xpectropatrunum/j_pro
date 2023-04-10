@@ -85,7 +85,7 @@
                                         $logs = $user
                                             ->logs()
                                             ->where(DB::raw('UNIX_TIMESTAMP(date)'), $item->unix)
-                                            ->get();
+                                            ;
                                         
                                         $leaves = $user
                                             ->leaves()
@@ -98,7 +98,7 @@
                                             ->first();
                                         $companies = [];
                                         $times = 0;
-                                        foreach ($logs as $log) {
+                                        foreach ($logs->get() as $log) {
                                             $companies[] = $log->company?->company_name;
                                             $times += $log->duration_in_seconds;
                                         }
