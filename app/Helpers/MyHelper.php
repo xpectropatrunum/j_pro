@@ -61,7 +61,7 @@ class MyHelper
     }
     static function standardDuration($times){
         [$day, $hour, $min] = gmdate("d H i", $times);
-        return $day * 24 + $hour . ":" . $min;
+        return ($day * 24 + $hour) . ":" . $min;
 
     }
     static function dateOfMonths($year = null, $month = null)
