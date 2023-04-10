@@ -40,7 +40,7 @@ class Log extends Model
     }
     function company()
     {
-        return $this->belongsTo(Project::class, "id", "company_id");
+        return $this->belongsTo(Project::class, "company_id", "id");
     }
     function getCompanyIdAttribute()
     {
