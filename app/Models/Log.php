@@ -11,6 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Log extends Model
 {
+    protected $appends = ["company_id"];
 
     public $table = "logs";
     /**
@@ -20,6 +21,7 @@ class Log extends Model
      */
     protected $fillable = [
         'project_id',
+        'company_id',
         'user_id',
         'date',
         'time',
@@ -35,6 +37,17 @@ class Log extends Model
     function project()
     {
         return $this->belongsTo(Project::class);
+    }
+    function company()
+    {
+        return $this->belongsTo(Project::class, "id", "company_id");
+    }
+    function getCompanyIdAttribute()
+    {
+        if(!$this->attributes["company_id"]){
+            return $this->attributes["project_id"];
+        }
+        return $this->attributes["company_id"];
     }
     function getLeaveTimeAttribute()
     {
