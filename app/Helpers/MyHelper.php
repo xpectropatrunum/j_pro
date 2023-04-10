@@ -60,7 +60,7 @@ class MyHelper
         return $years;
     }
     static function standardDuration($times){
-        [$day, $hour, $min] = gmdate("d H i", $times);
+        [$day, $hour, $min] = explode(" ", gmdate("d H i", $times));
         return ($day * 24 + $hour) . ":" . $min;
 
     }
