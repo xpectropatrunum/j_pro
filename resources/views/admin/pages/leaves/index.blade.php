@@ -76,7 +76,7 @@
                                                     href="{{ route('admin.users.index', ['search' => $item->log->user_id]) }}">{{ $item->log->user->name }}</a>
                                             </td>
                                             <td><a
-                                                href="{{ route('admin.projects.index', ['search' => $item->log->project?->id]) }}">{{ $item->log->project?->company_name }}</a>
+                                                href="{{ route('admin.projects.index', ['search' => $item->log->company?->id]) }}">{{ $item->log->company?->company_name }}</a>
                                         </td>
                                             <td><a
                                                     href="{{ route('admin.projects.index', ['search' => $item->log->project?->id]) }}">{{ $item->log->project?->name }}</a>
