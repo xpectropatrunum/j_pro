@@ -82,7 +82,7 @@
                                         <td><a
                                                 href="{{ route('admin.users.index', ['search' => $item->user->id]) }}">{{ $item->user->name }}</a>
                                         </td>
-                                        <td>{{  gmdate("H:i:s", $item->duration) }}</td>
+                                        <td> {{ MyHelper::standardDuration($item->duration)}} </td>
 
 
 
