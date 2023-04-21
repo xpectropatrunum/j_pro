@@ -27,7 +27,6 @@
                     <table class="table table-striped table-bordered mb-0 text-nowrap">
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>{{ __('User') }}</th>
                                 <th>{{ __('Company') }}</th>
                                 <th>{{ __('Project') }}</th>
@@ -42,7 +41,6 @@
                                     $item->user->supervisor()->first()->id == auth()->user()->id && !$item->leave_time)
                                     <tr>
 
-                                        <td>{{ $item->id }}</td>
                                         <td><a
                                                 href="{{ route('admin.users.index', ['search' => $item->user_id]) }}">{{ $item->user->name }}</a>
                                         </td>

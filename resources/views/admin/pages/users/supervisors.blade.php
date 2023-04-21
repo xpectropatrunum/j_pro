@@ -76,7 +76,6 @@
                         <table class="table table-striped table-bordered mb-0 text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>{{ __('ID') }}</th>
                                     <th>{{ __('Name') }}</th>
                                     <th>{{ __('Username') }}</th>
@@ -97,13 +96,7 @@
                                 @foreach ($items as $item)
                                     @if ($item->hasRole('supervisor'))
                                         <tr>
-                                            <td>
-                                                @if ($item->hasRole('supervisor'))
-                                                    👨‍💼
-                                                    @endif @if ($item->hasRole('admin'))
-                                                        ⭐
-                                                    @endif{{ $item->id }}
-                                            </td>
+                                           
                                             <td>{{ $item->system_id }}</td>
 
                                             <td>{{ $item->name }}</td>
