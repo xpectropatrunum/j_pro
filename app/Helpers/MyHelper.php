@@ -78,6 +78,9 @@ class MyHelper
         if (!$year) {
             $year = (new Shamsi)->jNumber()[0];
         }
+        if($month < 10){
+            $month = "0" . $month;
+        }
         $out = [];
         foreach (range(1, self::dayCount($month)) as $day) {
             $out[] = (object)[
