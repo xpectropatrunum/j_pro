@@ -87,7 +87,7 @@
                                             </td>
 
                                             <td>{{ number_format($item->fee ?: 0) }}</td>
-                                            <td><a href="#" data-toggle="tooltip" title="{{$item->note}}">{{ substr($item->note, 20) . ".." }}</a></td>
+                                            <td><a href="#" data-toggle="tooltip" title="{{$item->note}}">{{ mb_substr($item->note, 20) . ".." }}</a></td>
 
                                             {{--  <td class="project-actions">
                                   
