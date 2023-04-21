@@ -68,9 +68,9 @@
                                     foreach ($items as $k) {
                                         $time = $k->duration;
                                         if (isset($l[$k->user->id])) {
-                                            $l[$k->user->id]->duration += $k->duration_seconds;
+                                            $l[$k->user->id]->duration += $k->duration_in_seconds;
                                         } else {
-                                            $l[$k->user->id] = (object)['user' => $k->user, 'duration' => $k->duration_seconds];
+                                            $l[$k->user->id] = (object)['user' => $k->user, 'duration' => $k->duration_in_seconds];
                                         }
                                     }
                                  
