@@ -49,7 +49,10 @@ class Shamsi
     }
     public function jNumber()
     {
-        return explode("-", $this->gregorian_to_jalali(date("Y/m/d")));
+        [$y, $m, $d] = explode("-", $this->gregorian_to_jalali(date("Y/m/d")));
+        $m = $m < 10 ? "0" . $m : $m; 
+        $d = $d < 10 ? "0" . $d : $d; 
+        return [$y, $m, $d];
     }
     public function jMonthNumber()
     {

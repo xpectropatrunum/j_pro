@@ -35,7 +35,7 @@
                     ->get();
                 $off = $user
                     ->offs()
-                    ->where(DB::raw('UNIX_TIMESTAMP(date)'), $item->unix)
+                    ->where(DB::raw('(date)'), $item->date)
                     ->first();
                 $companies = [];
                 $times_ = 0;
