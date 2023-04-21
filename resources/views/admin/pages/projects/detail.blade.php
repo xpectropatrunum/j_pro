@@ -68,9 +68,9 @@
                                     foreach ($items as $k) {
                                         $time = $k->duration;
                                         if (isset($l[$k->user->id])) {
-                                            $l[$k->user->id]->duration += strtotime("1970-01-01 $time UTC");
+                                            $l[$k->user->id]->duration += $item->duration_seconds;
                                         } else {
-                                            $l[$k->user->id] = (object)['user' => $k->user, 'duration' => strtotime("1970-01-01 $time UTC")];
+                                            $l[$k->user->id] = (object)['user' => $k->user, 'duration' => $item->duration_seconds];
                                         }
                                     }
                                  
