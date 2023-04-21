@@ -83,6 +83,9 @@ class MyHelper
         }
         $out = [];
         foreach (range(1, self::dayCount($month)) as $day) {
+            if($day < 10){
+                $day = "0" . $day;
+            }
             $out[] = (object)[
                 "date" => $year . "/" . $month . "/" . $day,
                 "weekday" => __(date("D", strtotime((new Shamsi)->jalali_to_gregorian($year . "/" . $month . "/" . $day)))),
