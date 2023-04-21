@@ -57,7 +57,6 @@
                         <table class="table table-striped table-bordered mb-0 text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>{{ __('User') }}</th>
                                     <th>{{ __('Duration') }}</th>
                                 </tr>
@@ -78,7 +77,6 @@
                                 @endphp
                                 @foreach ($l as $key => $item)
                                     <tr>
-                                        <td>{{ $key }}</td>
                                         <td><a
                                                 href="{{ route('admin.users.index', ['search' => $item->user->id]) }}">{{ $item->user->name }}</a>
                                         </td>

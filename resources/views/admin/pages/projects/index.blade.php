@@ -58,7 +58,6 @@
                         <table class="table table-striped table-bordered mb-0 text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>{{ __('Company') }}</th>
                                     <th>{{ __('Project') }}</th>
                                     <th>{{ __('Location') }}</th>
@@ -70,7 +69,6 @@
                             <tbody>
                                 @foreach ($items as $item)
                                     <tr>
-                                        <td>{{ $item->id }}</td>
                                         <td>{{ $item->company_name }}</td>
                                         <td>{{ $item->name }}</td>
 

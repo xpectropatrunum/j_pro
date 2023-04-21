@@ -55,7 +55,6 @@
                         <table class="table table-striped table-bordered mb-0 text-nowrap">
                             <thead>
                             <tr>
-                                <th>#</th>
                                 <th>{{ __('User') }}</th>
                                 <th>{{ __('For date') }}</th>
                                 <th>{{ __('admin.created_date') }}</th>
@@ -66,7 +65,6 @@
                             @foreach($items as $item)
                             @if ($item->user->supervisor()->first()?->id == auth()->user()->id)
                                 <tr>
-                                    <td>{{ $item->id }}</td>
                                     <td><a href="{{ route("admin.users.index", ["search" => $item->user_id]) }}">{{ $item->user->name }}</a></td>
 
                                     <td>{{ $item->date}} ({{ $item->time ? $item->time:"1 روزه"}})</td>

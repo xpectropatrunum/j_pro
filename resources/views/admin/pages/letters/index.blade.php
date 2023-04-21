@@ -84,7 +84,6 @@
                         <table class="table table-striped table-bordered mb-0 text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>{{ __('Title_') }}</th>
                                     <th>{{ __('Number') }}</th>
                                     <th>{{ __('Company') }}</th>
@@ -97,7 +96,6 @@
                             <tbody>
                                 @foreach ($items as  $item)
                                     <tr>
-                                        <td>{{ $item->letter_id }}</td>
                                         <td>{{ $item->letter_subject?->title ?? '--' }}</td>
                                         <td>{{ $item->number }}</td>
                                         <td>{{ $item->project?->company_name }}</td>

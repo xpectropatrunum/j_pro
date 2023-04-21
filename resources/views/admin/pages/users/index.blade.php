@@ -76,7 +76,6 @@
                         <table class="table table-striped table-bordered mb-0 text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>{{ __('ID') }}</th>
                                     <th>{{ __('Name') }}</th>
                                     <th>{{ __('Username') }}</th>
@@ -100,13 +99,7 @@
                                         @if ($super_id)
                                             @if ($item->supervisor()->first()?->id == $super_id)
                                                 <tr>
-                                                    <td>
-                                                        @if ($item->hasRole('supervisor'))
-                                                            👨‍💼
-                                                            @endif @if ($item->hasRole('admin'))
-                                                                ⭐
-                                                            @endif{{ $item->id }}
-                                                    </td>
+                                                  
                                                     <td>{{ $item->system_id }}</td>
 
                                                     <td>{{ $item->name }}</td>
@@ -160,13 +153,7 @@
                                             @endif
                                         @else
                                             <tr>
-                                                <td>
-                                                    @if ($item->hasRole('supervisor'))
-                                                        👨‍💼
-                                                        @endif @if ($item->hasRole('admin'))
-                                                            ⭐
-                                                        @endif{{ $item->id }}
-                                                </td>
+                                               
                                                 <td>{{ $item->system_id }}</td>
 
                                                 <td>{{ $item->name }}</td>
@@ -223,13 +210,7 @@
                                         @if ($item->supervisor()->first()?->id == auth()->user()->id)
                                             <tr>
 
-                                                <td>
-                                                    @if ($item->hasRole('supervisor'))
-                                                        👨‍💼
-                                                        @endif @if ($item->hasRole('admin'))
-                                                            ⭐
-                                                        @endif{{ $item->id }}
-                                                </td>
+                                               
                                                 <td>{{ $item->system_id }}</td>
 
                                                 <td>{{ $item->name }}</td>

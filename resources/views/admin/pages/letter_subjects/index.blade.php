@@ -56,7 +56,6 @@
                         <table class="table table-striped table-bordered mb-0 text-nowrap">
                             <thead>
                             <tr>
-                                <th>#</th>
                                 <th>{{ __('Title_') }}</th>
                                 <th>{{ __('Supervisor') }}</th>
                                 <th>{{ __('Enable') }}</th>
@@ -67,7 +66,6 @@
                             <tbody>
                             @foreach($items as $item)
                                 <tr>
-                                    <td>{{ $item->id }}</td>
                                     <td>{{ $item->title }}</td>
                                     <td><a href="{{ route("admin.users.index", ["search" => $item->supervisor->id]) }}">{{ $item->supervisor->name }}</a></td>
                                     

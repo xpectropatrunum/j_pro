@@ -56,7 +56,6 @@
                         <table class="table table-striped table-bordered mb-0 text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>{{ __('User') }}</th>
                                     <th>{{ __('Company') }}</th>
                                     <th>{{ __('Project') }}</th>
@@ -71,7 +70,6 @@
                                 @foreach ($items as $item)
                                     @if ($item->log)
                                         <tr>
-                                            <td>{{ $item->id }}</td>
                                             <td><a
                                                     href="{{ route('admin.users.index', ['search' => $item->log->user_id]) }}">{{ $item->log->user->name }}</a>
                                             </td>
